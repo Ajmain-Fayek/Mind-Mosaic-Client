@@ -11,14 +11,14 @@ import {
 } from "firebase/auth";
 
 import auth from "../../Firebase/Firebase.config";
-import useAxiosSecure from "../../Hooks/useAxios";
-import AuthContext from "./AuthContext";
+import { AuthContext } from "./AuthContext";
+import { useAxios } from "../../Hooks/useAxios";
 
 // GOOGLE AUTH PROVIDER
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-    const axiosSequre = useAxiosSecure();
+    const axiosSequre = useAxios();
     const [themeToggle, setThemeToggle] = useState(true);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
