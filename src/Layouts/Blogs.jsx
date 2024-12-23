@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../Common/Navbar";
-import Footer from "../Common/Footer";
+import Footer from "../Common/Footers";
 import { Outlet } from "react-router";
 
 const Blogs = () => {
