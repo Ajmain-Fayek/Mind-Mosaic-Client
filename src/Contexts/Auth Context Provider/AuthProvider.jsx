@@ -19,7 +19,6 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const axiosSequre = useAxios();
-    const [themeToggle, setThemeToggle] = useState(true);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -107,8 +106,6 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     const authInfo = {
-        themeToggle,
-        setThemeToggle,
         signUpWithEmailAndPassword,
         signInWithGoogle,
         updateUserInfo,
