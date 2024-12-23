@@ -136,7 +136,7 @@ const Footer = () => {
                 <hr
                     className={`my-6  sm:mx-auto lg:my-8 ${
                         theme === "light"
-                            ? "border-gray-200"
+                            ? "border-gray-300"
                             : "border-gray-700"
                     }`}
                 />

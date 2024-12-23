@@ -3,6 +3,7 @@ import Home from "../Layouts/Home";
 import Error from "../Layouts/Error";
 import Blogs from "../Layouts/Blogs";
 import HomePage from "../Pages/Home/HomePage";
+import FeaturedBlogs from "../Pages/Blogs/Featured Blogs/FeaturedBlogs";
 
 const routes = createBrowserRouter([
     {
@@ -16,6 +17,9 @@ const routes = createBrowserRouter([
     {
         path: "/blogs",
         element: <Blogs />,
+        children: [
+            { path: "/blogs/featured-blogs", element: <FeaturedBlogs /> },
+        ],
     },
 ]);
 export default routes;

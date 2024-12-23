@@ -1,7 +1,16 @@
 import React from "react";
+import NavBar from "../Common/Navbar";
+import Footer from "../Common/Footer";
+import { Outlet } from "react-router";
 
 const Blogs = () => {
-    return <div>Blogs</div>;
+    return (
+        <>
+            <NavBar />
+            <Outlet />
+            <Footer />
+        </>
+    );
 };
 
 export default Blogs;
