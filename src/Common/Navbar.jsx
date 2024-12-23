@@ -10,9 +10,7 @@ const NavBar = () => {
         <Navbar
             fluid
             className={`2xl:px-10 border-b shadow-sm ${
-                theme === "dark"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white text-gray-800"
+                theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
             }`}
         >
             <Navbar.Brand href="https://flowbite-react.com">
@@ -23,7 +21,7 @@ const NavBar = () => {
                 />
                 <span
                     className={`self-center whitespace-nowrap text-xl font-semibold ${
-                        theme === "light" ? "text-gray-800" : "text-white"
+                        theme === "light" ? "text-dark" : "text-light"
                     }`}
                 >
                     Mind Mosaic

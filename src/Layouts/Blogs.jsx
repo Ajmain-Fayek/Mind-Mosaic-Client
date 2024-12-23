@@ -1,14 +1,14 @@
 import React from "react";
 import NavBar from "../Common/Navbar";
-import Footer from "../Common/Footers";
 import { Outlet } from "react-router";
+import Footers from "../Common/Footers";
 
 const Blogs = () => {
     return (
         <>
             <NavBar />
             <Outlet />
-            <Footer />
+            <Footers />
         </>
     );
 };

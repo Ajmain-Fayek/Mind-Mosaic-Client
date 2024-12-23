@@ -16,9 +16,7 @@ const Footers = () => {
         <Footer
             container
             className={`2xl:px-10 border-b shadow-sm rounded-none border-t ${
-                theme === "dark"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white text-gray-800"
+                theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
             }`}
         >
             <div className="w-full">
@@ -26,9 +24,7 @@ const Footers = () => {
                     <div className="flex items-center">
                         <Footer.Brand
                             className={`${
-                                theme === "dark"
-                                    ? "text-white"
-                                    : "text-gray-800"
+                                theme === "dark" ? "text-light" : "text-dark"
                             }`}
                             src={logo}
                             alt="Mind Mosaic Logo"
@@ -36,9 +32,7 @@ const Footers = () => {
                         />
                         <span
                             className={`self-center whitespace-nowrap text-xl font-semibold ${
-                                theme === "light"
-                                    ? "text-gray-800"
-                                    : "text-white"
+                                theme === "light" ? "text-dark" : "text-light"
                             }`}
                         >
                             Mind Mosaic
@@ -50,16 +44,16 @@ const Footers = () => {
                                 title="About"
                                 className={
                                     theme === "light"
-                                        ? "text-gray-600"
-                                        : "text-gray-200"
+                                        ? "text-dark"
+                                        : "text-light"
                                 }
                             />
                             <Footer.LinkGroup
                                 col
                                 className={
                                     theme === "light"
-                                        ? "text-gray-500"
-                                        : "text-gray-400"
+                                        ? "text-semi-dark"
+                                        : "text-semi-light"
                                 }
                             >
                                 <Footer.Link href="#">Flowbite</Footer.Link>
@@ -71,16 +65,16 @@ const Footers = () => {
                                 title="Follow us"
                                 className={
                                     theme === "light"
-                                        ? "text-gray-600"
-                                        : "text-gray-200"
+                                        ? "text-dark"
+                                        : "text-light"
                                 }
                             />
                             <Footer.LinkGroup
                                 col
                                 className={
                                     theme === "light"
-                                        ? "text-gray-500"
-                                        : "text-gray-400"
+                                        ? "text-semi-dark"
+                                        : "text-semi-light"
                                 }
                             >
                                 <Footer.Link href="#">Github</Footer.Link>
@@ -92,16 +86,16 @@ const Footers = () => {
                                 title="Legal"
                                 className={
                                     theme === "light"
-                                        ? "text-gray-600"
-                                        : "text-gray-200"
+                                        ? "text-dark"
+                                        : "text-light"
                                 }
                             />
                             <Footer.LinkGroup
                                 col
                                 className={
                                     theme === "light"
-                                        ? "text-gray-500"
-                                        : "text-gray-400"
+                                        ? "text-semi-dark"
+                                        : "text-semi-light"
                                 }
                             >
                                 <Footer.Link href="#">
@@ -117,8 +111,8 @@ const Footers = () => {
                 <Footer.Divider
                     className={
                         theme === "light"
-                            ? "border-gray-300"
-                            : "border-gray-500"
+                            ? "border-semi-light"
+                            : "border-semi-dark"
                     }
                 />
                 <div
@@ -131,15 +125,15 @@ const Footers = () => {
                         year={2024}
                         className={
                             theme === "light"
-                                ? "text-gray-500"
-                                : "text-gray-400"
+                                ? "text-semi-dark"
+                                : "text-semi-light"
                         }
                     />
                     <div
                         className={`mt-4 flex space-x-6 sm:mt-0 sm:justify-center ${
                             theme === "light"
-                                ? "text-gray-500"
-                                : "text-gray-400"
+                                ? "text-semi-dark"
+                                : "text-semi-light"
                         }`}
                     >
                         <Footer.Icon icon={BsFacebook} />
