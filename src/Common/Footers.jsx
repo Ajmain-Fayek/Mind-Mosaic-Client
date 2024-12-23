@@ -9,9 +9,11 @@ import {
     BsInstagram,
     BsTwitter,
 } from "react-icons/bs";
+import { useNavigate } from "react-router";
 
 const Footers = () => {
     const { theme } = useThemeContext();
+    const navigate = useNavigate();
     return (
         <Footer
             container
@@ -21,7 +23,10 @@ const Footers = () => {
         >
             <div className="w-full">
                 <div className="grid gap-6 md:gap-0 w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-                    <div className="flex items-center">
+                    <div
+                        onClick={() => navigate("/")}
+                        className="flex items-center cursor-pointer"
+                    >
                         <Footer.Brand
                             className={`${
                                 theme === "dark" ? "text-light" : "text-dark"
@@ -56,8 +61,18 @@ const Footers = () => {
                                         : "text-semi-light"
                                 }
                             >
-                                <Footer.Link href="#">Flowbite</Footer.Link>
-                                <Footer.Link href="#">Tailwind CSS</Footer.Link>
+                                <Footer.Link
+                                    href="https://flowbite-react.com/"
+                                    target="_black"
+                                >
+                                    Flowbite
+                                </Footer.Link>
+                                <Footer.Link
+                                    href="https://tailwindcss.com/"
+                                    target="_blank"
+                                >
+                                    Tailwind CSS
+                                </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
                         <div>
@@ -77,8 +92,18 @@ const Footers = () => {
                                         : "text-semi-light"
                                 }
                             >
-                                <Footer.Link href="#">Github</Footer.Link>
-                                <Footer.Link href="#">Discord</Footer.Link>
+                                <Footer.Link
+                                    href="https://github.com"
+                                    target="_blank"
+                                >
+                                    Github
+                                </Footer.Link>
+                                <Footer.Link
+                                    href="https://discord.com"
+                                    target="_black"
+                                >
+                                    Discord
+                                </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
                         <div>

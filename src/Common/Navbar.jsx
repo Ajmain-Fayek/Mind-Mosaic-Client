@@ -1,11 +1,24 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from "../assets/logo.png";
 import { useThemeContext } from "../Hooks/useThemeContext";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 const NavBar = () => {
     const { theme, setTheme } = useThemeContext();
+    const { logOutUser, user } = useAuthContext();
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        logOutUser()
+            .than((res) => {
+                console.log(res);
+            })
+            .cath((err) => {
+                console.log(err);
+            });
+    };
     return (
         <Navbar
             fluid
@@ -13,7 +26,10 @@ const NavBar = () => {
                 theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
             }`}
         >
-            <Navbar.Brand href="https://flowbite-react.com">
+            <Navbar.Brand
+                className="cursor-pointer"
+                onClick={() => navigate("/")}
+            >
                 <img
                     src={logo}
                     className="mr-3 h-6 sm:h-9"
@@ -30,27 +46,84 @@ const NavBar = () => {
 
             <div className="flex md:order-2">
                 <Dropdown
+                    className={
+                        theme === "dark"
+                            ? "bg-semi-dark text-light"
+                            : "bg-light text-dark"
+                    }
                     arrowIcon={false}
                     inline
                     label={
                         <Avatar
                             alt="User settings"
-                            img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                            img={
+                                user?.profileImage
+                                    ? user.profileImage
+                                    : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
+                            }
                             rounded
                         />
                     }
                 >
-                    <Dropdown.Header>
-                        <span className="block text-sm">Bonnie Green</span>
+                    <Dropdown.Header
+                        className={
+                            theme === "dark"
+                                ? "bg-semi-dark text-light"
+                                : "bg-light text-dark"
+                        }
+                    >
+                        <span className="block text-sm">
+                            {user?.userName ? user.userName : "Bonnie Green"}
+                        </span>
                         <span className="block truncate text-sm font-medium">
-                            name@flowbite.com
+                            {user ? user.email : "bonni@egreen.com"}
                         </span>
                     </Dropdown.Header>
-                    <Dropdown.Item>Dashboard</Dropdown.Item>
+                    {/* <Dropdown.Item>Dashboard</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>Earnings</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item>Sign out</Dropdown.Item>
+                    <Dropdown.Item>Earnings</Dropdown.Item> */}
+                    <Dropdown.Divider
+                        className={
+                            theme === "dark"
+                                ? " bg-semi-dark"
+                                : " bg-semi-light"
+                        }
+                    />
+                    {user ? (
+                        <>
+                            <Dropdown.Item
+                                className={
+                                    theme === "dark"
+                                        ? "bg-semi-dark text-light"
+                                        : "bg-light text-dark"
+                                }
+                                onClick={() => navigate("/user/profile")}
+                            >
+                                Profile
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                className={
+                                    theme === "dark"
+                                        ? "bg-semi-dark text-light"
+                                        : "bg-light text-dark"
+                                }
+                                onClick={handleSignOut}
+                            >
+                                Sign out
+                            </Dropdown.Item>
+                        </>
+                    ) : (
+                        <Dropdown.Item
+                            className={
+                                theme === "dark"
+                                    ? "bg-semi-dark text-light"
+                                    : "bg-light text-dark"
+                            }
+                            onClick={() => navigate("/user/login")}
+                        >
+                            Sign in
+                        </Dropdown.Item>
+                    )}
                 </Dropdown>
                 <Navbar.Toggle className="ml-2 bg-transparent" />
             </div>

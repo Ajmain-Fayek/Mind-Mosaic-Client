@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 .active {
-  color: #859f3d;
+  color: #3fd31a;
+}
+
+.login-register-light .active{
+  color: #379600;
+}
+.login-register-dark .active{
+  color: #79f37f;
 }

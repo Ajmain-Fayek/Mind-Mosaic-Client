@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser?.email) {
+                console.log(currentUser);
                 axiosSequre
                     .post("/api/login", { email: currentUser.email })
                     .then((res) => {
