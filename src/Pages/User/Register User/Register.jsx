@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 import register_lottie from "./Components/Register_lottie.json";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { useAxios } from "../../../Hooks/useAxios";
+import { FcGoogle } from "react-icons/fc";
 const Register = () => {
     const { theme } = useThemeContext();
     const { signUpWithEmailAndPassword, signInWithGoogle } = useAuthContext();
@@ -18,9 +19,12 @@ const Register = () => {
         const password = passwordRef.current.value;
         signUpWithEmailAndPassword(email, password)
             .then(async (res) => {
+                console.log(res)
                 return await axiosFetch
                     .post("/api/users", {
                         email: res.user.email,
+                        profileImage:
+                            "https://i.ibb.co.com/fY42dcJ/Avater2.jpg",
                     })
                     .then((res) => {
                         console.log(res.data);
@@ -125,6 +129,10 @@ const Register = () => {
                         Register
                     </Button>
                 </form>
+                <div className="border-t"></div>
+                <button className="mx-auto">
+                    <FcGoogle fontSize={"2rem"} />
+                </button>
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={register_lottie} />

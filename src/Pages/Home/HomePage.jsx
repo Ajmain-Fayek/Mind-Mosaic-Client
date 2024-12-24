@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useThemeContext } from "../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
 import lottie from "./Components/Banner.json";
 import Aside from "../../Common/Aside";
+import BlogCard from "../../Common/BlogCard";
+import { useAxios } from "../../Hooks/useAxios";
+import { Spinner } from "flowbite-react";
 
 const HomePage = () => {
     const { theme } = useThemeContext();
+    const [blogs, setBlogs] = useState(null);
+    const axiosFetch = useAxios();
+    useEffect(() => {
+        axiosFetch
+            .get("api/blogs/recent/6")
+            .then((res) => {
+                // console.log(res.data);
+                setBlogs(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
     return (
         <>
             <div className="p-6">
@@ -28,8 +42,26 @@ const HomePage = () => {
                 </div>
             </div>
             {/* Aside */}
-            <div className="p-6">
-                <Aside />
+            <div className="p-6 flex justify-between items-start gap-4 w-full">
+                <Aside className={"hidden md:block"} />
+                {blogs ? (
+                    <div className="max-w-[794px] w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mx-auto justify-items-center items-start content-start">
+                        {blogs.map((blog) => (
+                            <BlogCard key={blog._id} blog={blog} />
+                        ))}
+                    </div>
+                ) : (
+                    <>
+                        <div className="text-center">
+                            <Spinner
+                                color="success"
+                                aria-label="Center-aligned spinner example"
+                            />
+                        </div>
+                    </>
+                )}
+
+                <Aside className="hidden lg:block" />
             </div>
         </>
     );

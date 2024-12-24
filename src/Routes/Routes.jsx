@@ -9,6 +9,9 @@ import Login from "../Pages/User/Login User/Login";
 import Register from "../Pages/User/Register User/Register";
 import UserProfile from "../Pages/User/User Profile/UserProfile";
 import Profile from "../Layouts/Profile";
+import BlogDetails from "../Pages/Blogs/Blog Details/BlogDetails";
+import { useAxios } from "../Hooks/useAxios";
+import UpdateBlog from "../Pages/Blogs/Update Blog/UpdateBlog";
 
 const routes = createBrowserRouter([
     {
@@ -24,6 +27,38 @@ const routes = createBrowserRouter([
         element: <Blogs />,
         children: [
             { path: "/blogs/featured-blogs", element: <FeaturedBlogs /> },
+            {
+                path: "/blogs/details/:blogId",
+                loader: async ({ params }) => {
+                    const axiosFetch = useAxios();
+                    let data;
+                    // console.log(params.blogId);
+                    await axiosFetch
+                        .get(`/api/blogs/${params.blogId}`)
+                        .then((res) => {
+                            data = res.data;
+                            // console.log(res.data);
+                        });
+                    return data;
+                },
+                element: <BlogDetails />,
+            },
+            {
+                path: "/blogs/update/:blogId",
+                loader: async ({ params }) => {
+                    const axiosFetch = useAxios();
+                    let data;
+                    // console.log(params.blogId);
+                    await axiosFetch
+                        .get(`/api/blogs/${params.blogId}`)
+                        .then((res) => {
+                            data = res.data;
+                            // console.log(res.data);
+                        });
+                    return data;
+                },
+                element: <UpdateBlog />,
+            },
         ],
     },
     {

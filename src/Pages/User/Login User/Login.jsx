@@ -4,10 +4,13 @@ import { useThemeContext } from "../../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
 import login_lottie from "./Components/login_lottie.json";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
+import { FcGoogle } from "react-icons/fc";
+import { useAxios } from "../../../Hooks/useAxios";
 
 const Login = () => {
     const { theme } = useThemeContext();
-    const { signInUser } = useAuthContext();
+    const { signInUser, signInWithGoogle } = useAuthContext();
+    const axiosFetch = useAxios();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
@@ -22,6 +25,20 @@ const Login = () => {
             .catch((err) => {
                 console.log(err);
             });
+    };
+
+    const handleGoogleSignin = () => {
+        signInWithGoogle().then((res) => {
+            axiosFetch
+                .post("/api/users", {
+                    email: res.user.email,
+                    userName: res.user.displayName,
+                    profileImage: res.user.photoURL,
+                })
+                .then((res) => {
+                    console.log(res.data);
+                });
+        });
     };
 
     return (
@@ -116,6 +133,10 @@ const Login = () => {
                         Login
                     </Button>
                 </form>
+                <div className="border-t"></div>
+                <button onClick={handleGoogleSignin} className="mx-auto">
+                    <FcGoogle fontSize={"2rem"} />
+                </button>
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={login_lottie} />

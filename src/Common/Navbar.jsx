@@ -1,7 +1,7 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from "../assets/logo.png";
 import { useThemeContext } from "../Hooks/useThemeContext";
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
@@ -45,52 +45,52 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <div className="flex md:order-2">
-                <Dropdown
-                    className={
-                        theme === "dark"
-                            ? "bg-semi-dark text-light"
-                            : "bg-light text-dark"
-                    }
-                    arrowIcon={false}
-                    inline
-                    label={
-                        <Avatar
-                            alt="User settings"
-                            img={
-                                user?.profileImage
-                                    ? user.profileImage
-                                    : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
+                {user ? (
+                    <>
+                        <Dropdown
+                            className={
+                                theme === "dark"
+                                    ? "bg-semi-dark text-light"
+                                    : "bg-light text-dark"
                             }
-                            rounded
-                        />
-                    }
-                >
-                    <Dropdown.Header
-                        className={
-                            theme === "dark"
-                                ? "bg-semi-dark text-light"
-                                : "bg-light text-dark"
-                        }
-                    >
-                        <span className="block text-sm">
-                            {user?.userName ? user.userName : "Bonnie Green"}
-                        </span>
-                        <span className="block truncate text-sm font-medium">
-                            {user ? user.email : "bonni@egreen.com"}
-                        </span>
-                    </Dropdown.Header>
-                    {/* <Dropdown.Item>Dashboard</Dropdown.Item>
-                    <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>Earnings</Dropdown.Item> */}
-                    <Dropdown.Divider
-                        className={
-                            theme === "dark"
-                                ? " bg-semi-dark"
-                                : " bg-semi-light"
-                        }
-                    />
-                    {user ? (
-                        <>
+                            arrowIcon={false}
+                            inline
+                            label={
+                                <Avatar
+                                    alt="User settings"
+                                    img={
+                                        user?.profileImage
+                                            ? user.profileImage
+                                            : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
+                                    }
+                                    rounded
+                                />
+                            }
+                        >
+                            <Dropdown.Header
+                                className={
+                                    theme === "dark"
+                                        ? "bg-semi-dark text-light"
+                                        : "bg-light text-dark"
+                                }
+                            >
+                                <span className="block text-sm">
+                                    {user?.userName
+                                        ? user.userName
+                                        : "Your Name?"}
+                                </span>
+                                <span className="block truncate text-sm font-medium">
+                                    {user.email}
+                                </span>
+                            </Dropdown.Header>
+                            <Dropdown.Divider
+                                className={
+                                    theme === "dark"
+                                        ? " bg-semi-dark"
+                                        : " bg-semi-light"
+                                }
+                            />
+
                             <Dropdown.Item
                                 className={
                                     theme === "dark"
@@ -111,21 +111,25 @@ const NavBar = () => {
                             >
                                 Sign out
                             </Dropdown.Item>
-                        </>
-                    ) : (
-                        <Dropdown.Item
-                            className={
-                                theme === "dark"
-                                    ? "bg-semi-dark text-light"
-                                    : "bg-light text-dark"
-                            }
-                            onClick={() => navigate("/user/login")}
+                        </Dropdown>
+                        <Navbar.Toggle className="ml-2 bg-transparent" />
+                    </>
+                ) : (
+                    <>
+                        <Link
+                            to={"/user/login"}
+                            className="px-3 py-1 mr-1 text-light font-semibold hover:bg-semi-dark hover:text-semi-light bg-semi-light rounded-md"
                         >
-                            Sign in
-                        </Dropdown.Item>
-                    )}
-                </Dropdown>
-                <Navbar.Toggle className="ml-2 bg-transparent" />
+                            Login
+                        </Link>
+                        <Link
+                            to={"/user/register"}
+                            className="px-3 lg:inline-block md:hidden sm:inline-block hidden py-1 text-light font-semibold hover:bg-semi-dark hover:text-semi-light bg-semi-light rounded-md"
+                        >
+                            Register
+                        </Link>
+                    </>
+                )}
             </div>
 
             <Navbar.Collapse className="ml-6 md:m-0">

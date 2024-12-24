@@ -1,17 +1,17 @@
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import { useThemeContext } from "../Hooks/useThemeContext";
 
-const Aside = () => {
+const Aside = ({ className }) => {
     const { user } = useAuthContext();
     const { theme } = useThemeContext();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     if (!user)
         return (
             <>
                 <div
-                    className={`max-w-80 p-4 rounded-xl ${
+                    className={`max-w-80 w-full p-4 rounded-xl ${className} ${
                         theme === "light"
                             ? "bg-gradient-to-r from-light  to-semi-light text-dark"
                             : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
@@ -70,7 +70,7 @@ const Aside = () => {
 
     return (
         <div
-            className={`max-w-80 p-4 rounded-xl ${
+            className={`max-w-80 p-4 rounded-xl w-full ${className} ${
                 theme === "light"
                     ? "bg-gradient-to-r from-light  to-semi-light text-dark"
                     : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
