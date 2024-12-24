@@ -12,6 +12,7 @@ import Profile from "../Layouts/Profile";
 import BlogDetails from "../Pages/Blogs/Blog Details/BlogDetails";
 import { useAxios } from "../Hooks/useAxios";
 import UpdateBlog from "../Pages/Blogs/Update Blog/UpdateBlog";
+import AllBlogs from "../Pages/Blogs/All Blogs/AllBlogs";
 
 const routes = createBrowserRouter([
     {
@@ -26,7 +27,14 @@ const routes = createBrowserRouter([
         path: "/blogs",
         element: <Blogs />,
         children: [
-            { path: "/blogs/featured-blogs", element: <FeaturedBlogs /> },
+            {
+                path: "/blogs/all-blogs",
+                element: <AllBlogs />,
+            },
+            {
+                path: "/blogs/featured-blogs",
+                element: <FeaturedBlogs />,
+            },
             {
                 path: "/blogs/details/:blogId",
                 loader: async ({ params }) => {

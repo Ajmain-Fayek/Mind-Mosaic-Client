@@ -18,7 +18,9 @@ const Blogs = () => {
                 <div className="sticky top-0 z-[9999999]">
                     <NavBar />
                 </div>
-                <Outlet />
+                <div className="my-6 mx-2 min-h-[635px]">
+                    <Outlet />
+                </div>
                 <Footers />
             </div>
         </>

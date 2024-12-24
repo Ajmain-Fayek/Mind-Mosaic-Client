@@ -5,7 +5,7 @@ import { TbJewishStarFilled } from "react-icons/tb";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog }, { key }) => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
     const {
@@ -32,7 +32,7 @@ const BlogCard = ({ blog }) => {
 
     return (
         <div
-            className={`max-w-96 w-full border shadow-sm p-2 rounded-lg ${
+            className={`max-w-96 w-full border shadow-md p-2 rounded-lg ${
                 theme === "light"
                     ? "text-dark bg-light"
                     : "text-light bg-semi-dark"

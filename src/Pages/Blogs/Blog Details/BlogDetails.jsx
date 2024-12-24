@@ -81,7 +81,7 @@ const BlogDetails = () => {
         );
     return (
         <>
-            <div className="md:m-6 mx-2 my-6">
+            <div className="mx-2">
                 <div className="max-w-6xl space-y-6 mx-auto w-full p-2">
                     <div
                         className={`mx-auto w-full p-2 rounded-lg border shadow-md ${
