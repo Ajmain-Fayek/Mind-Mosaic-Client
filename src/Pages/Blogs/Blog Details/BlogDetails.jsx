@@ -34,6 +34,7 @@ const BlogDetails = () => {
     // Handle Comment
     const handleComment = (e) => {
         e.preventDefault();
+        if (!user) return setErrorMessage("Login to Comment.");
         if (user._id === data.userId) {
             return setErrorMessage("Can not comment on own blog.");
         }
@@ -55,7 +56,7 @@ const BlogDetails = () => {
                 userName: user.userName,
                 userImage: user.userImage,
                 comment: commentRef.current.value,
-                userId: user._id,
+                userId: user?._id,
                 createdDateTime,
             })
             .then((res) => {

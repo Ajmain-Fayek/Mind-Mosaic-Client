@@ -11,13 +11,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        logOutUser()
-            .than((res) => {
-                console.log(res);
-            })
-            .cath((err) => {
-                console.log(err);
-            });
+        return logOutUser();
     };
     return (
         <Navbar
