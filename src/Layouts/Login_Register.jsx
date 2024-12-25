@@ -47,7 +47,7 @@ const Login_Register = () => {
                     </NavLink>
                 </ButtonGroup>
             </div>
-            <div className="my-10">
+            <div className="my-10 min-h-[525px]">
                 <Outlet />
             </div>
             <Footers />

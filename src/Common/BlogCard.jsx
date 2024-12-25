@@ -83,7 +83,7 @@ const BlogCard = ({ blog }) => {
                 </span>
                 <div>
                     <img
-                        className="w-10 h-10 rounded-full bg-semi-light"
+                        className="w-10 h-10 object-cover rounded-full bg-semi-light"
                         src={
                             userImage
                                 ? userImage
@@ -104,7 +104,7 @@ const BlogCard = ({ blog }) => {
                 <p>{shortDescription}</p>
                 {image && (
                     <img
-                        className="w-10/12 mx-auto mt-1 h-40 bg-semi-light"
+                        className="w-10/12 object-contain mx-auto mt-1 h-40 "
                         src={image}
                         alt={`${title} reference photo`}
                     />

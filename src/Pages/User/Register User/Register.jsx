@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useThemeContext } from "../../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
 import register_lottie from "./Components/Register_lottie.json";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { useAxios } from "../../../Hooks/useAxios";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router";
+import { formatISO } from "date-fns";
 const Register = () => {
     const { theme } = useThemeContext();
     const { signUpWithEmailAndPassword, signInWithGoogle } = useAuthContext();
@@ -14,11 +14,38 @@ const Register = () => {
     const passwordRef = useRef(null);
     const axiosFetch = useAxios();
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setErrorMessage("");
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
+
+        // Password Validation
+        if (password.length < 6) {
+            return setErrorMessage(
+                "Password must be at least 6 characters long."
+            );
+        }
+
+        if (!/[A-Z]/.test(password)) {
+            return setErrorMessage(
+                "Password must contain at least one uppercase letter."
+            );
+        }
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            return setErrorMessage(
+                "Password must contain at least one special character."
+            );
+        }
+
+        if (!/\d/.test(password)) {
+            return setErrorMessage(
+                "Password must contain at least one numeric character."
+            );
+        }
 
         try {
             // Register the user with email and password
@@ -29,15 +56,16 @@ const Register = () => {
                 throw new Error("User registration failed.");
             }
 
-            console.log("User registered:", user);
+            // console.log("User registered:", user);
 
             // Save the user to the database
             await axiosFetch.post("/api/users", {
+                accountCreatedOn: formatISO(new Date()),
                 email: user.email,
                 profileImage: "https://i.ibb.co.com/fY42dcJ/Avater2.jpg",
             });
 
-            console.log("User saved to the database.");
+            // console.log("User saved to the database.");
 
             // Reset the form
             e.target.reset();
@@ -45,6 +73,7 @@ const Register = () => {
             // Redirect to login page
             navigate("/user/login");
         } catch (err) {
+            setErrorMessage(err.message.match(/\(([^)]+)\)/)?.[1]);
             console.error("Error during registration:", err);
 
             // Optional: Display user-friendly error messages
@@ -128,19 +157,7 @@ const Register = () => {
                             required
                         />
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Checkbox id="remember" />
-                        <Label
-                            className={` ${
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }`}
-                            htmlFor="remember"
-                        >
-                            Remember me
-                        </Label>
-                    </div>
+
                     <Button
                         type="submit"
                         className={
@@ -152,6 +169,12 @@ const Register = () => {
                         Register
                     </Button>
                 </form>
+                {/* Error Message */}
+                {errorMessage && (
+                    <div className="mt-2">
+                        <span className="text-red-400">{errorMessage}</span>
+                    </div>
+                )}
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={register_lottie} />

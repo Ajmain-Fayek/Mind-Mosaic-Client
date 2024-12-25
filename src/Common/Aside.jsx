@@ -107,10 +107,10 @@ const Aside = ({ className }) => {
             </div>
             <div className="border-t border-semi-dark rounded-full" />
             {/* Work */}
-            <div>
+            <div className="text-center">
                 <p className="font-semibold text-lg">
-                    {user?.designation
-                        ? user.designation
+                    {user?.workDesignation
+                        ? user.workDesignation
                         : "your work title shows here"}
                 </p>
                 <p
@@ -126,7 +126,7 @@ const Aside = ({ className }) => {
             <div className="border-t border-semi-dark rounded-full" />
             {/* Account Created */}
 
-            <div>{`Since: ${user?.accountCreated}`}</div>
+            <div className="text-center">{`Since: ${user?.accountCreatedOn}`}</div>
         </div>
     );
 };

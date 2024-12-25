@@ -91,7 +91,9 @@ const NavBar = () => {
                                         ? "bg-semi-dark text-light"
                                         : "bg-light text-dark"
                                 }
-                                onClick={() => navigate("/user/profile")}
+                                onClick={() =>
+                                    navigate(`/profile/${user?._id}`)
+                                }
                             >
                                 Profile
                             </Dropdown.Item>

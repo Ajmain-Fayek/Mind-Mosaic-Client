@@ -7,6 +7,7 @@ import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FcGoogle } from "react-icons/fc";
 import { useAxios } from "../../../Hooks/useAxios";
 import { useLocation, useNavigate } from "react-router";
+import { formatISO } from "date-fns";
 
 const Login = () => {
     const { theme } = useThemeContext();
@@ -17,6 +18,7 @@ const Login = () => {
     const passwordRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Extract the redirect path from query params
     const searchParams = new URLSearchParams(location.search);
@@ -24,14 +26,17 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setErrorMessage("");
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         signInUser(email, password)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => {
-                console.log(err);
+                const extractedText = err.message.match(/\(([^)]+)\)/)?.[1];
+                // console.log(extractedText
+                setErrorMessage(extractedText);
             });
     };
 
@@ -40,26 +45,25 @@ const Login = () => {
             // Sign in with Google
             const res = await signInWithGoogle();
             const user = res.user;
-            console.log("Google Sign-In User:", user);
+            // console.log("Google Sign-In User:", user);
 
             // Notify the server and ensure the user exists in the database
             const { data: existsResponse } = await axiosSecure.get(
                 `/api/users/exists/${user.email}`
             );
             if (!existsResponse.exists) {
-                console.log("Creating new user in the database...");
+                // console.log("Creating new user in the database...");
                 await axiosSecure.post("/api/users", {
+                    accountCreatedOn: formatISO(new Date()),
                     email: user.email,
                     userName: user.displayName,
                     profileImage: user.photoURL,
                 });
             }
 
-            console.log(
-                "User creation complete. Auth state will handle the rest."
-            );
+            // console.log("User creation complete. Auth state will handle the rest.");
         } catch (error) {
-            console.error("Error during Google Sign-In:", error);
+            // console.error("Error during Google Sign-In:", error);
         }
     };
 
@@ -165,6 +169,12 @@ const Login = () => {
                 <button onClick={handleGoogleSignin} className="mx-auto">
                     <FcGoogle fontSize={"2rem"} />
                 </button>
+                {/* Error Message */}
+                {errorMessage && (
+                    <div className="mt-2">
+                        <span className="text-red-400">{errorMessage}</span>
+                    </div>
+                )}
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={login_lottie} />

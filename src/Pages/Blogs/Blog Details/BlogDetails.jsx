@@ -60,7 +60,7 @@ const BlogDetails = () => {
                 title: data?.title,
             })
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setIsInWishlist(true);
             });
     };
@@ -141,7 +141,7 @@ const BlogDetails = () => {
                             </span>
                             <div>
                                 <img
-                                    className="w-10 h-10 rounded-full bg-semi-light"
+                                    className="w-10 h-10 rounded-full object-cover bg-semi-light"
                                     src={
                                         data?.userImage
                                             ? data.userImage
@@ -175,7 +175,7 @@ const BlogDetails = () => {
                             <p>{data.shortDescription}</p>
                             {data?.image && (
                                 <img
-                                    className="w-10/12 mx-auto my-2 lg:h-96 md:h-80 sm:h-60 h-48 bg-semi-light"
+                                    className="w-10/12 mx-auto object-contain my-2 lg:h-96 md:h-80 sm:h-60 h-48"
                                     src={data.image}
                                     alt={`${data.title} reference photo`}
                                 />

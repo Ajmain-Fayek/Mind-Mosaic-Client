@@ -53,7 +53,7 @@ const CreateBlog = () => {
                 setSuccessMessage("Blog Posted Succesfully");
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
             });
         // console.log(blogData);
     };
