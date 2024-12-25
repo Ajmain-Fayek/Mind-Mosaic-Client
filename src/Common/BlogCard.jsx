@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useThemeContext } from "../Hooks/useThemeContext";
 import { CgDetailsMore } from "react-icons/cg";
 import { TbJewishStarFilled } from "react-icons/tb";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
+import { useAuthContext } from "../Hooks/useAuthContext";
+import { useAxios } from "../Hooks/useAxios";
 
-const BlogCard = ({ blog }, { key }) => {
+const BlogCard = ({ blog }) => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
+    const { user } = useAuthContext();
+    const [btnTxt, setBtnTxt] = useState();
+    const axiosFetch = useAxios();
     const {
         _id,
         title,
@@ -18,8 +23,8 @@ const BlogCard = ({ blog }, { key }) => {
         publishedDateTime,
         userId,
         userName,
-        userImage = null,
-        updatedDateTime = null,
+        userImage,
+        updatedDateTime,
     } = blog;
     // console.log(userImage);
 
@@ -29,6 +34,26 @@ const BlogCard = ({ blog }, { key }) => {
     );
 
     // console.log(userFriendlyDate); // Outputs: December 16, 2024 at 08:50 AM
+
+    // Handle wishlist
+    const handleWishlist = () => {
+        if (!user) return;
+        axiosFetch
+            .post("/api/wishlist", {
+                blogId: _id,
+                userId: user?._id,
+                userName: user?.userName,
+                userEmail: user?.email,
+                author: userName,
+                authorImage: userImage,
+                publishedDateTime,
+                category,
+                title,
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
+    };
 
     return (
         <div
@@ -78,6 +103,7 @@ const BlogCard = ({ blog }, { key }) => {
                 )}
                 <div className="mt-4 flex justify-end gap-2">
                     <button
+                        onClick={handleWishlist}
                         className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
                             theme === "light"
                                 ? "bg-semi-light hover:bg-semi-dark border-semi-dark"

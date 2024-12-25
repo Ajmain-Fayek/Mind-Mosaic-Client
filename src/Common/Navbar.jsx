@@ -137,7 +137,7 @@ const NavBar = () => {
                 <NavLink className={"mt-4 md:m-0"} to={"/blogs/add-blog"}>
                     Add blog
                 </NavLink>
-                <NavLink className={"mt-4 md:m-0"} to={"/wishlist"}>
+                <NavLink className={"mt-4 md:m-0"} to={"/profile/wishlist"}>
                     Wishlist
                 </NavLink>
                 <div

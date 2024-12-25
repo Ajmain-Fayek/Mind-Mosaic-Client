@@ -10,12 +10,14 @@ import {
 import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { CgDetailsMore } from "react-icons/cg";
 import { TbJewishStarFilled } from "react-icons/tb";
+import { useAuthContext } from "../../../Hooks/useAuthContext";
 
 const FeaturedBlogs = () => {
     const [blogs, setBlogs] = useState([]);
     const axiosFetch = useAxios();
     const navigate = useNavigate();
     const { theme } = useThemeContext();
+    const { user } = useAuthContext();
 
     useEffect(() => {
         axiosFetch.get("/api/blogs/top/10").then((data) => {
@@ -23,6 +25,31 @@ const FeaturedBlogs = () => {
         });
     }, []);
 
+    const handleWishlist = (
+        id,
+        title,
+        category,
+        author,
+        authorImage,
+        publishedDateTime
+    ) => {
+        if (!user) return;
+        axiosFetch
+            .post("/api/wishlist", {
+                blogId: id,
+                userId: user?._id,
+                userName: user?.userName,
+                userEmail: user?.email,
+                author,
+                authorImage,
+                publishedDateTime,
+                category,
+                title,
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
+    };
     const columns = React.useMemo(
         () => [
             {
@@ -58,7 +85,14 @@ const FeaturedBlogs = () => {
                     <div className="flex flex-wrap gap-2">
                         <button
                             onClick={() => {
-                                console.log(info?.row?.original?._id);
+                                handleWishlist(
+                                    info?.row?.original?._id,
+                                    info?.row?.original?.title,
+                                    info?.row?.original?.category,
+                                    info?.row?.original?.userName,
+                                    info?.row?.original?.userImage,
+                                    info?.row?.original?.publishedDateTime
+                                );
                             }}
                             className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
                                 theme === "light"

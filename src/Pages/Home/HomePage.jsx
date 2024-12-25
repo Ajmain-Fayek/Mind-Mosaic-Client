@@ -20,6 +20,7 @@ const HomePage = () => {
             })
             .catch((err) => console.log(err));
     }, []);
+
     return (
         <>
             <div className="p-6">
