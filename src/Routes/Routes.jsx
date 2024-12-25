@@ -13,6 +13,8 @@ import BlogDetails from "../Pages/Blogs/Blog Details/BlogDetails";
 import { useAxios } from "../Hooks/useAxios";
 import UpdateBlog from "../Pages/Blogs/Update Blog/UpdateBlog";
 import AllBlogs from "../Pages/Blogs/All Blogs/AllBlogs";
+import CreateBlog from "../Pages/Blogs/Create Blog/CreateBlog";
+import PrivateRoutes from "./PrivateRoutes";
 
 const routes = createBrowserRouter([
     {
@@ -27,6 +29,14 @@ const routes = createBrowserRouter([
         path: "/blogs",
         element: <Blogs />,
         children: [
+            {
+                path: "/blogs/add-blog",
+                element: (
+                    <PrivateRoutes>
+                        <CreateBlog />
+                    </PrivateRoutes>
+                ),
+            },
             {
                 path: "/blogs/all-blogs",
                 element: <AllBlogs />,
