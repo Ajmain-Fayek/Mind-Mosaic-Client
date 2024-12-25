@@ -3,17 +3,24 @@ import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { useAxios } from "../../../Hooks/useAxios";
 import { formatISO } from "date-fns";
+import { useLoaderData } from "react-router";
 
 const UpdateBlog = () => {
-    const [title, setTitle] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    const [shortDescription, setShortDescription] = useState("");
-    const [longDescription, setLongDescription] = useState("");
-    const [category, setCategory] = useState("");
+    const data = useLoaderData();
+    const [title, setTitle] = useState(data?.title);
+    const [imageUrl, setImageUrl] = useState(data?.image);
+    const [shortDescription, setShortDescription] = useState(
+        data?.shortDescription
+    );
+    const [longDescription, setLongDescription] = useState(
+        data?.longDescription
+    );
+    const [category, setCategory] = useState(data?.category);
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
     const axiosFetch = useAxios();
     const [errorMessagem, setErrorMessage] = useState("");
+    const [successMessagem, setSuccessMessage] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,12 +43,17 @@ const UpdateBlog = () => {
         };
 
         axiosFetch
-            .post("/api/blogs", blogData)
+            .put(`/api/blogs/${data?._id}`, blogData)
             .then((res) => {
                 console.log(res.data);
+
+                setSuccessMessage("Blog Updated Successfully");
             })
             .catch((err) => {
                 console.log(err);
+                setErrorMessage(
+                    "Could not update blog. Please try after some time"
+                );
             });
         console.log(blogData);
         // Add logic to send blogData to the server
@@ -50,7 +62,7 @@ const UpdateBlog = () => {
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col items-center justify-center mb-10">
             <h2 className="text-xl font-semibold border border-semi-light px-4 py-2 rounded-lg">
-                Write A Blog
+                Update: {data?.title}
             </h2>
 
             <form onSubmit={handleSubmit} className="w-full space-y-5">
@@ -66,7 +78,7 @@ const UpdateBlog = () => {
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         type="text"
-                        value={title}
+                        defaultValue={data?.title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
@@ -81,7 +93,7 @@ const UpdateBlog = () => {
                     <input
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         type="text"
-                        value={imageUrl}
+                        defaultValue={data?.image}
                         onChange={(e) => setImageUrl(e.target.value)}
                     />
                 </div>
@@ -96,7 +108,7 @@ const UpdateBlog = () => {
                     <textarea
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
-                        value={shortDescription}
+                        defaultValue={data?.shortDescription}
                         onChange={(e) => setShortDescription(e.target.value)}
                     />
                 </div>
@@ -111,7 +123,7 @@ const UpdateBlog = () => {
                     <textarea
                         className="h-80 bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
-                        value={longDescription}
+                        defaultValue={data?.longDescription}
                         onChange={(e) => setLongDescription(e.target.value)}
                     />
                 </div>
@@ -126,7 +138,7 @@ const UpdateBlog = () => {
 
                     <select
                         onChange={(e) => setCategory(e.target.value)}
-                        value={category}
+                        defaultValue={data?.category}
                         required
                         name="genres"
                         className={`w-full py-2.5 rounded-none select-bordered bg-transparent  focus:ring-0 focus:outline-none placeholder:text-gray-200 ${
@@ -192,13 +204,19 @@ const UpdateBlog = () => {
                     type="submit"
                     className={`border px-4 py-1 border-semi-light hover:bg-semi-light`}
                 >
-                    Add Blog
+                    Update Blog
                 </button>
             </form>
             {/* Error Message */}
             {errorMessagem && (
                 <div className="mt-2">
                     <span className="text-red-500">{errorMessagem}</span>
+                </div>
+            )}
+            {/* Error Message */}
+            {successMessagem && (
+                <div className="mt-2">
+                    <span className="text-green-500">{successMessagem}</span>
                 </div>
             )}
         </div>

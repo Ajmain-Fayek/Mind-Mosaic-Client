@@ -15,6 +15,15 @@ const CreateBlog = () => {
     const { user } = useAuthContext();
     const axiosFetch = useAxios();
     const [errorMessagem, setErrorMessage] = useState("");
+    const [successMessagem, setSuccessMessage] = useState("");
+
+    const clearForm = () => {
+        setTitle("");
+        setImageUrl("");
+        setShortDescription("");
+        setLongDescription("");
+        setCategory("");
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -39,7 +48,9 @@ const CreateBlog = () => {
         axiosFetch
             .post("/api/blogs", blogData)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
+                clearForm();
+                setSuccessMessage("Blog Posted Succesfully");
             })
             .catch((err) => {
                 console.log(err);
@@ -200,6 +211,12 @@ const CreateBlog = () => {
             {errorMessagem && (
                 <div className="mt-2">
                     <span className="text-red-500">{errorMessagem}</span>
+                </div>
+            )}
+            {/* Error Message */}
+            {successMessagem && (
+                <div className="mt-2">
+                    <span className="text-green-500">{successMessagem}</span>
                 </div>
             )}
         </div>

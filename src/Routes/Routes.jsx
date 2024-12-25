@@ -75,7 +75,11 @@ const routes = createBrowserRouter([
                         });
                     return data;
                 },
-                element: <UpdateBlog />,
+                element: (
+                    <PrivateRoutes>
+                        <UpdateBlog />
+                    </PrivateRoutes>
+                ),
             },
         ],
     },
