@@ -28,7 +28,7 @@ const AllBlogs = () => {
                 `/api/blogs/search?category=${categoryQuery}&query=${searchQuery}`
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setBlogs(res.data);
             });
     };

@@ -22,7 +22,7 @@ const BlogDetails = () => {
     useEffect(() => {
         axiosFetch.get(`/api/comments/${data._id}`).then((res) => {
             setComments(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         });
     }, []);
     // Formate Date for user Friendly reading
@@ -60,10 +60,10 @@ const BlogDetails = () => {
                 createdDateTime,
             })
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 axiosFetch.get(`/api/comments/${data._id}`).then((res) => {
                     setComments(res.data);
-                    console.log(res.data);
+                    // console.log(res.data);
                 });
                 e.target.reset();
             });

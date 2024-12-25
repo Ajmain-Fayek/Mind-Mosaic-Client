@@ -1,9 +1,10 @@
 import { Spinner } from "flowbite-react";
 import { useAuthContext } from "../Hooks/useAuthContext";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 
 const PrivateRoutes = ({ children }) => {
     const { user, loading } = useAuthContext();
+    const location = useLocation();
 
     if (loading) {
         return (
@@ -16,7 +17,13 @@ const PrivateRoutes = ({ children }) => {
         );
     }
 
-    if (!user) return <Navigate to={"/user/login"} />;
+    if (!user)
+        return (
+            <Navigate
+                to={`/user/login?redirect=${location.pathname}`}
+                replace
+            />
+        );
 
     return children;
 };

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { useThemeContext } from "../../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
@@ -6,13 +6,21 @@ import login_lottie from "./Components/login_lottie.json";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FcGoogle } from "react-icons/fc";
 import { useAxios } from "../../../Hooks/useAxios";
+import { useLocation, useNavigate } from "react-router";
 
 const Login = () => {
     const { theme } = useThemeContext();
+    const { user } = useAuthContext();
     const { signInUser, signInWithGoogle } = useAuthContext();
-    const axiosFetch = useAxios();
+    const axiosSecure = useAxios();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Extract the redirect path from query params
+    const searchParams = new URLSearchParams(location.search);
+    const redirectPath = searchParams.get("redirect") || "/";
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -27,19 +35,39 @@ const Login = () => {
             });
     };
 
-    const handleGoogleSignin = () => {
-        signInWithGoogle().then((res) => {
-            axiosFetch
-                .post("/api/users", {
-                    email: res.user.email,
-                    userName: res.user.displayName,
-                    profileImage: res.user.photoURL,
-                })
-                .then((res) => {
-                    console.log(res.data);
+    const handleGoogleSignin = async () => {
+        try {
+            // Sign in with Google
+            const res = await signInWithGoogle();
+            const user = res.user;
+            console.log("Google Sign-In User:", user);
+
+            // Notify the server and ensure the user exists in the database
+            const { data: existsResponse } = await axiosSecure.get(
+                `/api/users/exists/${user.email}`
+            );
+            if (!existsResponse.exists) {
+                console.log("Creating new user in the database...");
+                await axiosSecure.post("/api/users", {
+                    email: user.email,
+                    userName: user.displayName,
+                    profileImage: user.photoURL,
                 });
-        });
+            }
+
+            console.log(
+                "User creation complete. Auth state will handle the rest."
+            );
+        } catch (error) {
+            console.error("Error during Google Sign-In:", error);
+        }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate(redirectPath, { replace: true });
+        }
+    }, [user, navigate, redirectPath]);
 
     return (
         <div className="flex flex-col-reverse md:flex-row gap-4 items-center justify-center">

@@ -50,12 +50,10 @@ const routes = createBrowserRouter([
                 loader: async ({ params }) => {
                     const axiosFetch = useAxios();
                     let data;
-                    // console.log(params.blogId);
                     await axiosFetch
                         .get(`/api/blogs/${params.blogId}`)
                         .then((res) => {
                             data = res.data;
-                            // console.log(res.data);
                         });
                     return data;
                 },
@@ -66,12 +64,10 @@ const routes = createBrowserRouter([
                 loader: async ({ params }) => {
                     const axiosFetch = useAxios();
                     let data;
-                    // console.log(params.blogId);
                     await axiosFetch
                         .get(`/api/blogs/${params.blogId}`)
                         .then((res) => {
                             data = res.data;
-                            // console.log(res.data);
                         });
                     return data;
                 },

@@ -55,8 +55,7 @@ const CreateBlog = () => {
             .catch((err) => {
                 console.log(err);
             });
-        console.log(blogData);
-        // Add logic to send blogData to the server
+        // console.log(blogData);
     };
 
     return (

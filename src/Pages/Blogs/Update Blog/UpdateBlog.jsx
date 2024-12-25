@@ -45,7 +45,7 @@ const UpdateBlog = () => {
         axiosFetch
             .put(`/api/blogs/${data?._id}`, blogData)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
 
                 setSuccessMessage("Blog Updated Successfully");
             })
@@ -55,8 +55,7 @@ const UpdateBlog = () => {
                     "Could not update blog. Please try after some time"
                 );
             });
-        console.log(blogData);
-        // Add logic to send blogData to the server
+        // console.log(blogData);
     };
 
     return (

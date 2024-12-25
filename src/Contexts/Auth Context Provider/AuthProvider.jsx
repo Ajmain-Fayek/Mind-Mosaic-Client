@@ -18,7 +18,7 @@ import { useAxios } from "../../Hooks/useAxios";
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-    const axiosSequre = useAxios();
+    const axiosSecure = useAxios();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -57,54 +57,51 @@ const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser?.email) {
-                console.log(currentUser);
-                axiosSequre
-                    .post("/api/login", { email: currentUser.email })
-                    .then((res) => {
-                        console.log("State Captured", res.data);
+        const fetchUserWithRetries = async (email, retries = 5) => {
+            while (retries > 0) {
+                try {
+                    await axiosSecure.post("/api/login", { email });
+                    const { data: userData } = await axiosSecure.get(
+                        `/api/users/${email}`
+                    );
+                    setUser(userData);
+                    setLoading(false);
+                    return;
+                } catch (error) {
+                    console.warn("Retrying user fetch...", retries, error);
+                    retries -= 1;
+                    await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second
+                }
+            }
 
-                        // Get User Data from DataBase
-                        axiosSequre
-                            .get(`/api/users/${currentUser?.email}`)
-                            .then((res) => {
-                                console.log("Current User: ", res.data?.email);
-                                setUser(res.data);
-                                setLoading(false);
-                            })
-                            .catch((err) => {
-                                console.error(
-                                    "Failed to fetch user data:",
-                                    err
-                                );
-                                setUser(null);
-                                setLoading(false);
-                            });
-                    })
-                    .catch((err) => {
-                        console.error("Failed to fetch user data:", err);
-                        setUser(null);
-                        setLoading(false);
-                    });
+            console.error("Failed to fetch user data after retries.");
+            setUser(null);
+            setLoading(false);
+        };
+
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setLoading(true);
+
+            if (currentUser?.email) {
+                console.log("User detected:", currentUser.email);
+                await fetchUserWithRetries(currentUser.email);
             } else {
-                axiosSequre
-                    .post("/api/logout", {})
-                    .then((res) => {
-                        console.log("log out:", res.data);
-                        setUser(null);
-                        setLoading(false);
-                    })
-                    .catch((err) => {
-                        console.error("Failed to log out:", err);
-                        setUser(null);
-                        setLoading(false);
-                    });
+                console.log(
+                    "No user logged in. Logging out from the server..."
+                );
+                try {
+                    await axiosSecure.post("/api/logout");
+                } catch (error) {
+                    console.error("Failed to notify server of logout:", error);
+                } finally {
+                    setUser(null);
+                    setLoading(false);
+                }
             }
         });
 
-        return () => unsubscribe();
-    }, []);
+        return () => unsubscribe(); // Clean up the listener on unmount
+    }, [auth]);
 
     const authInfo = {
         signUpWithEmailAndPassword,
