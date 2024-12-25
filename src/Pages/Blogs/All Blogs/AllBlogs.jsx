@@ -20,7 +20,7 @@ const AllBlogs = () => {
     const handleSearchInput = (event) => setSearchQuery(event.target.value);
     const handleCategoryInput = (event) => setCategoryQuery(event.target.value);
 
-    // Clear all filters
+   
     const handleSearch = (e) => {
         e.preventDefault();
         axiosFetch

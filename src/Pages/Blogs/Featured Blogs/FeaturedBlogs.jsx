@@ -14,42 +14,55 @@ import { useAuthContext } from "../../../Hooks/useAuthContext";
 
 const FeaturedBlogs = () => {
     const [blogs, setBlogs] = useState([]);
+    const [wishlist, setWishlist] = useState([]);
     const axiosFetch = useAxios();
     const navigate = useNavigate();
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
 
     useEffect(() => {
-        axiosFetch.get("/api/blogs/top/10").then((data) => {
-            setBlogs(data.data);
-        });
-    }, []);
+        // Fetch top blogs
+        axiosFetch
+            .get("/api/blogs/top/10")
+            .then((data) => setBlogs(data.data))
+            .catch((err) => console.error("Error fetching blogs:", err));
+    }, [axiosFetch]);
 
-    const handleWishlist = (
-        id,
-        title,
-        category,
-        author,
-        authorImage,
-        publishedDateTime
-    ) => {
+    useEffect(() => {
+        // Fetch user's wishlist
+        if (user) {
+            axiosFetch
+                .get(`/api/wishlist/${user._id}`)
+                .then((res) => setWishlist(res.data || []))
+                .catch((err) => console.error("Error fetching wishlist:", err));
+        }
+    }, [user, axiosFetch]);
+
+    const isBlogInWishlist = (id) =>
+        wishlist.some((item) => item.blogId === id);
+
+    const handleWishlist = (blog) => {
         if (!user) return;
         axiosFetch
             .post("/api/wishlist", {
-                blogId: id,
-                userId: user?._id,
-                userName: user?.userName,
-                userEmail: user?.email,
-                author,
-                authorImage,
-                publishedDateTime,
-                category,
-                title,
+                blogId: blog._id,
+                userId: user._id,
+                userName: user.userName,
+                userEmail: user.email,
+                author: blog.userName,
+                authorImage: blog.userImage,
+                publishedDateTime: blog.publishedDateTime,
+                category: blog.category,
+                title: blog.title,
             })
-            .then((res) => {
-                console.log(res.data);
-            });
+            .then(() => {
+                setWishlist((prev) => [...prev, { blogId: blog._id }]);
+            })
+            .catch((error) =>
+                console.error("Error adding to wishlist:", error)
+            );
     };
+
     const columns = React.useMemo(
         () => [
             {
@@ -81,46 +94,42 @@ const FeaturedBlogs = () => {
             },
             {
                 header: "Actions",
-                cell: (info) => (
-                    <div className="flex flex-wrap gap-2">
-                        <button
-                            onClick={() => {
-                                handleWishlist(
-                                    info?.row?.original?._id,
-                                    info?.row?.original?.title,
-                                    info?.row?.original?.category,
-                                    info?.row?.original?.userName,
-                                    info?.row?.original?.userImage,
-                                    info?.row?.original?.publishedDateTime
-                                );
-                            }}
-                            className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
-                                theme === "light"
-                                    ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                    : "bg-dark hover:bg-semi-dark"
-                            }`}
-                        >
-                            <TbJewishStarFilled /> Wishlist
-                        </button>
-                        <button
-                            className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
-                                theme === "light"
-                                    ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                    : "bg-dark hover:bg-semi-dark"
-                            }`}
-                            onClick={() =>
-                                navigate(
-                                    `/blogs/details/${info.row.original._id}`
-                                )
-                            }
-                        >
-                            <CgDetailsMore /> Details
-                        </button>
-                    </div>
-                ),
+                cell: (info) => {
+                    const blog = info.row.original;
+                    return (
+                        <div className="flex flex-wrap gap-2">
+                            <button
+                                disabled={isBlogInWishlist(blog._id)}
+                                onClick={() => handleWishlist(blog)}
+                                className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
+                                    theme === "light"
+                                        ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
+                                        : "bg-dark hover:bg-semi-dark"
+                                }`}
+                            >
+                                <TbJewishStarFilled />
+                                {isBlogInWishlist(blog._id)
+                                    ? "In Wishlist"
+                                    : "Wishlist"}
+                            </button>
+                            <button
+                                className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
+                                    theme === "light"
+                                        ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
+                                        : "bg-dark hover:bg-semi-dark"
+                                }`}
+                                onClick={() =>
+                                    navigate(`/blogs/details/${blog._id}`)
+                                }
+                            >
+                                <CgDetailsMore /> Details
+                            </button>
+                        </div>
+                    );
+                },
             },
         ],
-        [navigate, theme]
+        [navigate, theme, wishlist]
     );
 
     const table = useReactTable({
@@ -135,7 +144,7 @@ const FeaturedBlogs = () => {
             <h1 className="text-xl w-fit text-center mx-auto mb-5 font-semibold border border-semi-light px-4 py-2 rounded-lg">
                 Featured Blog
             </h1>
-            <table className="">
+            <table className="min-w-full">
                 <thead className="border">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
@@ -149,10 +158,11 @@ const FeaturedBlogs = () => {
                                         header.column.columnDef.header,
                                         header.getContext()
                                     )}
-                                    {{
-                                        asc: " 🔼",
-                                        desc: " 🔽",
-                                    }[header.column.getIsSorted()] ?? null}
+                                    {header.column.getIsSorted() &&
+                                        ({ asc: " 🔼", desc: " 🔽" }[
+                                            header.column.getIsSorted()
+                                        ] ||
+                                            null)}
                                 </th>
                             ))}
                         </tr>

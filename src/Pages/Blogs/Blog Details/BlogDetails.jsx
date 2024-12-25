@@ -11,6 +11,7 @@ import { FiEdit } from "react-icons/fi";
 const BlogDetails = () => {
     const data = useLoaderData();
     const navigate = useNavigate();
+    const [isInWishlist, setIsInWishlist] = useState(false);
     const [coments, setComments] = useState(null);
     const commentRef = useRef("");
     const { theme } = useThemeContext();
@@ -18,6 +19,19 @@ const BlogDetails = () => {
     const { user } = useAuthContext();
     const [errorMessagem, setErrorMessage] = useState("");
     // console.log(data);
+
+    useEffect(() => {
+        // Check if the blog is already in the wishlist
+        if (user) {
+            axiosFetch
+                .get(`/api/wishlist/${user._id}/${data._id}`)
+                .then((res) => {
+                    if (res.data.exists) {
+                        setIsInWishlist(true);
+                    }
+                });
+        }
+    }, [user, data?._id, axiosFetch]);
 
     useEffect(() => {
         axiosFetch.get(`/api/comments/${data._id}`).then((res) => {
@@ -31,19 +45,43 @@ const BlogDetails = () => {
         "dd MMMM, yyyy"
     );
 
+    const handleWishlist = () => {
+        if (!user) return;
+        axiosFetch
+            .post("/api/wishlist", {
+                blogId: data?._id,
+                userId: user?._id,
+                userName: user?.userName,
+                userEmail: user?.email,
+                author: data?.userName,
+                authorImage: data?.userImage,
+                publishedDateTime: data?.publishedDateTime,
+                category: data?.category,
+                title: data?.title,
+            })
+            .then((res) => {
+                console.log(res.data);
+                setIsInWishlist(true);
+            });
+    };
+
     // Handle Comment
     const handleComment = (e) => {
         e.preventDefault();
+        setErrorMessage("");
         if (!user) return setErrorMessage("Login to Comment.");
-        if (user._id === data.userId) {
+
+        if (user?._id === data?.userId) {
             return setErrorMessage("Can not comment on own blog.");
         }
+
         if (!user?.userName) {
             setErrorMessage("");
             return setErrorMessage(
                 "To able to comment you need to Update your Profile. (user Must have a Name)"
             );
         }
+
         if (!commentRef.current.value) {
             return setErrorMessage("Comment box is empty.");
         }
@@ -146,14 +184,18 @@ const BlogDetails = () => {
 
                             <div className="mt-4 flex justify-end gap-2">
                                 <button
-                                    className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
+                                    disabled={isInWishlist}
+                                    onClick={handleWishlist}
+                                    className={`text-light ${
+                                        isInWishlist && "cursor-not-allowed"
+                                    } px-2 rounded-md border flex items-center gap-1.5 ${
                                         theme === "light"
                                             ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
                                             : "bg-dark hover:bg-semi-dark"
                                     }`}
                                 >
                                     <TbJewishStarFilled />
-                                    Wishlist
+                                    {isInWishlist ? "In Wishlist" : "Wishlist"}
                                 </button>
                                 {user?._id === data.userId && (
                                     <button

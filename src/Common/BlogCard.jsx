@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useThemeContext } from "../Hooks/useThemeContext";
 import { CgDetailsMore } from "react-icons/cg";
 import { TbJewishStarFilled } from "react-icons/tb";
@@ -11,7 +11,7 @@ const BlogCard = ({ blog }) => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
-    const [btnTxt, setBtnTxt] = useState();
+    const [isInWishlist, setIsInWishlist] = useState(false);
     const axiosFetch = useAxios();
     const {
         _id,
@@ -26,16 +26,23 @@ const BlogCard = ({ blog }) => {
         userImage,
         updatedDateTime,
     } = blog;
-    // console.log(userImage);
 
     const userFriendlyDate = format(
         new Date(publishedDateTime),
         "dd MMMM, yyyy"
     );
 
-    // console.log(userFriendlyDate); // Outputs: December 16, 2024 at 08:50 AM
+    useEffect(() => {
+        // Check if the blog is already in the wishlist
+        if (user) {
+            axiosFetch.get(`/api/wishlist/${user._id}/${_id}`).then((res) => {
+                if (res.data.exists) {
+                    setIsInWishlist(true);
+                }
+            });
+        }
+    }, [user, _id, axiosFetch]);
 
-    // Handle wishlist
     const handleWishlist = () => {
         if (!user) return;
         axiosFetch
@@ -52,6 +59,7 @@ const BlogCard = ({ blog }) => {
             })
             .then((res) => {
                 console.log(res.data);
+                setIsInWishlist(true);
             });
     };
 
@@ -103,15 +111,18 @@ const BlogCard = ({ blog }) => {
                 )}
                 <div className="mt-4 flex justify-end gap-2">
                     <button
+                        disabled={isInWishlist}
                         onClick={handleWishlist}
-                        className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
+                        className={`text-light ${
+                            isInWishlist && "cursor-not-allowed"
+                        } px-2 rounded-md border flex items-center gap-1.5 ${
                             theme === "light"
                                 ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
                                 : "bg-dark hover:bg-semi-dark"
                         }`}
                     >
                         <TbJewishStarFilled />
-                        Wishlist
+                        {isInWishlist ? "In Wishlist" : "Wishlist"}
                     </button>
                     <button
                         onClick={() => navigate(`/blogs/details/${_id}`)}

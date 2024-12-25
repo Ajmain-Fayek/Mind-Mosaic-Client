@@ -3,10 +3,11 @@ import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { useAxios } from "../../../Hooks/useAxios";
 import { formatISO } from "date-fns";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateBlog = () => {
     const data = useLoaderData();
+    const navigate = useNavigate();
     const [title, setTitle] = useState(data?.title);
     const [imageUrl, setImageUrl] = useState(data?.image);
     const [shortDescription, setShortDescription] = useState(
@@ -48,6 +49,7 @@ const UpdateBlog = () => {
                 // console.log(res.data);
 
                 setSuccessMessage("Blog Updated Successfully");
+                navigate("/");
             })
             .catch((err) => {
                 console.log(err);
