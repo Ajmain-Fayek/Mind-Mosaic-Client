@@ -121,6 +121,15 @@ const BlogDetails = () => {
                             </div>
                         </div>
                         <div className="border-t my-1.5" />
+                        {data?.updatedDateTime && (
+                            <span className="font-semibold my-4 block">
+                                Last Updated on:{" "}
+                                {format(
+                                    new Date(data?.updatedDateTime),
+                                    "dd MMMM, yyyy"
+                                )}
+                            </span>
+                        )}
                         <div className="">
                             <h1 className="text-lg font-semibold">
                                 {data.title}
@@ -128,12 +137,12 @@ const BlogDetails = () => {
                             <p>{data.shortDescription}</p>
                             {data?.image && (
                                 <img
-                                    className="w-10/12 mx-auto my-2 h-96 bg-semi-light"
+                                    className="w-10/12 mx-auto my-2 lg:h-96 md:h-80 sm:h-60 h-48 bg-semi-light"
                                     src={data.image}
                                     alt={`${data.title} reference photo`}
                                 />
                             )}
-                            <p>{data.longDescription}</p>
+                            <p className="mt-2">{data.longDescription}</p>
 
                             <div className="mt-4 flex justify-end gap-2">
                                 <button

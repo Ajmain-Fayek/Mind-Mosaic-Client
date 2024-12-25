@@ -29,14 +29,14 @@ const UpdateBlog = () => {
                 "To able to Post a blog a user must have a Name. (Please Update your profile)!!!"
             );
         const now = new Date();
-        const publishedDateTime = formatISO(now);
+        const updatedDateTime = formatISO(now);
         const blogData = {
             title,
             image: imageUrl,
             shortDescription,
             longDescription,
             category,
-            publishedDateTime,
+            updatedDateTime,
             userId: user?._id || "N/A",
             userName: user?.userName || "N/A",
             userImage: user?.profileImage || "N/A",
