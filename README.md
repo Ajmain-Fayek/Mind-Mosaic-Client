@@ -6,7 +6,7 @@ This web application is designed to provide users with a seamless and interactiv
 
 ## Live URL
 
-Access the application here: <a href="https://mind-mosaic.web.app" target="_blank">Live Application</a>
+Access the application here: <a href="https://mind-mosaic.web.app" target="\_blank">Live Application</a>
 
 ## Key Features
 
