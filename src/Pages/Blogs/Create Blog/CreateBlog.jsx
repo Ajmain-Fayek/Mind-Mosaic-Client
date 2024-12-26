@@ -4,6 +4,7 @@ import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { formatISO } from "date-fns";
 import { useAxios } from "../../../Hooks/useAxios";
+import { Helmet } from "react-helmet-async";
 
 const CreateBlog = () => {
     const [title, setTitle] = useState("");
@@ -60,6 +61,9 @@ const CreateBlog = () => {
 
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col items-center justify-center mb-10">
+            <Helmet>
+                <title>Write a blog : MindMosaic</title>
+            </Helmet>
             <h2 className="text-xl font-semibold border border-semi-light px-4 py-2 rounded-lg">
                 Write A Blog
             </h2>

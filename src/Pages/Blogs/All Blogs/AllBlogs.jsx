@@ -4,6 +4,7 @@ import BlogCard from "../../../Common/BlogCard";
 import { Spinner } from "flowbite-react";
 import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 const AllBlogs = () => {
     const [blogs, setBlogs] = useState(null);
@@ -145,6 +146,9 @@ const AllBlogs = () => {
 
     return (
         <>
+            <Helmet>
+                <title>All blogs : MindMosaic</title>
+            </Helmet>
             <div className="max-w-[1175px] w-full mx-auto flex justify-center mb-10">
                 <form
                     onSubmit={handleSearch}

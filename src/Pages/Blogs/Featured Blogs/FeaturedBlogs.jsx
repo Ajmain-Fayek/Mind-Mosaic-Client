@@ -12,6 +12,7 @@ import { CgDetailsMore } from "react-icons/cg";
 import { TbJewishStarFilled } from "react-icons/tb";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const FeaturedBlogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -149,6 +150,9 @@ const FeaturedBlogs = () => {
 
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col justify-center mb-10 overflow-auto">
+            <Helmet>
+                <title>Top 10 Featured blogs of MindMosaic</title>
+            </Helmet>
             <h1 className="text-xl w-fit text-center mx-auto mb-5 font-semibold border border-semi-light px-4 py-2 rounded-lg">
                 Featured Blog
             </h1>

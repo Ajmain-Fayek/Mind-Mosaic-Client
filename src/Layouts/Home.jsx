@@ -6,12 +6,16 @@ import { useThemeContext } from "../Hooks/useThemeContext";
 import NewsLater from "../Common/NewsLater";
 import JoinMindMosaic from "../Common/JoinMindMosaic";
 import FAQAccordion from "../Common/FAQAccordion";
+import { Helmet } from "react-helmet-async";
 // import AuthProvider from "../Contexts/Auth Context Provider/AuthProvider";
 
 const Home = () => {
     const { theme } = useThemeContext();
     return (
         <>
+            <Helmet>
+                <title>Home : Mind Mosaic</title>
+            </Helmet>
             <div
                 className={
                     theme === "light"

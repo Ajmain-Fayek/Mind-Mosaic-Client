@@ -3,11 +3,15 @@ import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FaUserEdit } from "react-icons/fa";
 import { format } from "date-fns";
 import { Link } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const UserProfile = () => {
     const { user } = useAuthContext();
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col justify-center items-center mb-10">
+            <Helmet>
+                <title>Profile: {user.userName}</title>
+            </Helmet>
             <div className="w-full relative flex flex-col items-center">
                 <img
                     className="bg-semi-light w-full object-cover  sm:h-60 h-48"

@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useAxios } from "../../../Hooks/useAxios";
 import { useLocation, useNavigate } from "react-router";
 import { formatISO } from "date-fns";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const { theme } = useThemeContext();
@@ -75,6 +76,9 @@ const Login = () => {
 
     return (
         <div className="flex flex-col-reverse md:flex-row gap-4 items-center justify-center">
+            <Helmet>
+                <title>Login in to MindMosaic</title>
+            </Helmet>
             <Card
                 className={`max-w-sm w-full ${
                     theme === "light"

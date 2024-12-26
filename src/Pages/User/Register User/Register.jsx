@@ -7,6 +7,7 @@ import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { useAxios } from "../../../Hooks/useAxios";
 import { useNavigate } from "react-router";
 import { formatISO } from "date-fns";
+import { Helmet } from "react-helmet-async";
 const Register = () => {
     const { theme } = useThemeContext();
     const { signUpWithEmailAndPassword, signInWithGoogle } = useAuthContext();
@@ -91,6 +92,9 @@ const Register = () => {
 
     return (
         <div className="flex flex-col-reverse md:flex-row gap-4 items-center justify-center">
+            <Helmet>
+                <title>Register in to MindMosaic</title>
+            </Helmet>
             <Card
                 className={`max-w-sm w-full ${
                     theme === "light"

@@ -8,6 +8,7 @@ import { useAxios } from "../../../Hooks/useAxios";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const BlogDetails = () => {
     const data = useLoaderData();
@@ -128,6 +129,9 @@ const BlogDetails = () => {
         );
     return (
         <>
+            <Helmet>
+                <title>{data.title || "Blog Details"}</title>
+            </Helmet>
             <div className="mx-2">
                 <div className="max-w-6xl space-y-6 mx-auto w-full p-2">
                     <div
