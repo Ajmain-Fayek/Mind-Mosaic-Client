@@ -50,15 +50,18 @@ const NavBar = () => {
                             arrowIcon={false}
                             inline
                             label={
-                                <Avatar
-                                    alt="User settings"
-                                    img={
-                                        user?.profileImage
-                                            ? user.profileImage
-                                            : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
-                                    }
-                                    rounded
-                                />
+                                <div className="border rounded-full">
+                                    <Avatar
+                                        alt="user"
+                                        className="bg-gray-400  text-center content-center rounded-full"
+                                        img={
+                                            user?.profileImage
+                                                ? user.profileImage
+                                                : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
+                                        }
+                                        rounded
+                                    />
+                                </div>
                             }
                         >
                             <Dropdown.Header

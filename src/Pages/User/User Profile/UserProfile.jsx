@@ -15,8 +15,8 @@ const UserProfile = () => {
                 />
                 <img
                     src={user?.profileImage}
-                    className="w-40 rounded-full border object-cover -mt-20"
-                    alt={user?.userName}
+                    className="w-40 h-40 rounded-full bg-gray-400 border text-center content-center object-cover -mt-20"
+                    alt={user?.userName + "'s profile photo"}
                 />
             </div>
             <div className="text-center mt-2">

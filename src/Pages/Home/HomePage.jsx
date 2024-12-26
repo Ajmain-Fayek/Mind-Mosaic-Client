@@ -7,6 +7,7 @@ import BlogCard from "../../Common/BlogCard";
 import { useAxios } from "../../Hooks/useAxios";
 import { Spinner } from "flowbite-react";
 import FollowUsAside from "../../Common/FollowUsAside";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
     const { theme } = useThemeContext();
@@ -48,7 +49,16 @@ const HomePage = () => {
                 <Aside className={"hidden md:block"} />
                 {blogs ? (
                     <>
-                        <div className="space-y-2">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: 0.3,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
+                            className="space-y-2 box"
+                        >
                             <span
                                 className={` font-semibold text-lg ${
                                     theme === "light"
@@ -64,7 +74,7 @@ const HomePage = () => {
                                     <BlogCard key={blog._id} blog={blog} />
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
                     </>
                 ) : (
                     <>

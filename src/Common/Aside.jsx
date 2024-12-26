@@ -88,11 +88,12 @@ const Aside = ({ className }) => {
                 />
 
                 <img
-                    className="max-w-24 max-h-24 mx-auto object-cover -mt-12 z-50 border shadow-md rounded-full"
+                    className="w-24 h-24  mx-auto object-cover bg-gray-400  text-center content-center -mt-12 z-50 border shadow-md rounded-full"
                     src={
                         user?.profileImage ||
                         "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
                     }
+                    alt={user.userName + "'s profile photo"}
                 />
 
                 <p className="text-center text-xl font-semibold mt-2">

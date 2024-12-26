@@ -3,6 +3,7 @@ import { useAxios } from "../../../Hooks/useAxios";
 import BlogCard from "../../../Common/BlogCard";
 import { Spinner } from "flowbite-react";
 import { useThemeContext } from "../../../Hooks/useThemeContext";
+import { motion } from "framer-motion";
 
 const AllBlogs = () => {
     const [blogs, setBlogs] = useState(null);
@@ -20,7 +21,6 @@ const AllBlogs = () => {
     const handleSearchInput = (event) => setSearchQuery(event.target.value);
     const handleCategoryInput = (event) => setCategoryQuery(event.target.value);
 
-   
     const handleSearch = (e) => {
         e.preventDefault();
         axiosFetch
@@ -234,11 +234,20 @@ const AllBlogs = () => {
                 </form>
             </div>
 
-            <div className="max-w-[1175px] w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto justify-items-center  items-start content-start">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.5,
+                    delay: 0.3,
+                    ease: [0, 0.71, 0.2, 1.01],
+                }}
+                className="max-w-[1175px] w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto justify-items-center  items-start content-start"
+            >
                 {blogs.map((blog) => (
                     <BlogCard key={blog._id} blog={blog} />
                 ))}
-            </div>
+            </motion.div>
         </>
     );
 };
