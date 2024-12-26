@@ -50,14 +50,14 @@ const UserProfile = () => {
                 <div className="border-t" />
                 {/* Education info */}
                 <p className="font-semibold text-lg">
-                    Degree: {user?.degree || "Work Designation?"}
+                    Degree: {user?.degree || "Degree?"}
                 </p>
                 <p className="text-base font-semibold">
-                    Institute: {user?.institute || "Current work Company?"}
+                    Institute: {user?.institute || "College Name?"}
                 </p>
                 <p className="text-sm">
-                    {user?.instituteJoining || "company joining date?"} to{" "}
-                    {user?.instituteLeft || "company current state?"}
+                    {user?.instituteJoining || "started at?"} to{" "}
+                    {user?.instituteLeft || "graduated at?"}
                 </p>
                 <div className="border-t" />
                 {/* Contact info */}
