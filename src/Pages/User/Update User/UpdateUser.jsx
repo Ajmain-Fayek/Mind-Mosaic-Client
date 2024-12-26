@@ -35,7 +35,7 @@ const UpdateUser = () => {
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col justify-center items-center">
             <Helmet>
-                <title>Update Profile : {user.userName}</title>
+                <title>Update Profile : {user?.userName || user?.email}</title>
             </Helmet>
             <h1 className="text-xl w-fit text-center mx-auto mb-5 font-semibold border border-semi-light px-4 py-2 rounded-lg">
                 Update User Profile
