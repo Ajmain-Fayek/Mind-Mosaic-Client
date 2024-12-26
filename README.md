@@ -1,4 +1,4 @@
-# Web Application
+# Mind Mosaic
 
 ## Purpose
 
@@ -6,7 +6,7 @@ This web application is designed to provide users with a seamless and interactiv
 
 ## Live URL
 
-Access the application here: [Live Application](https://mind-mosaic.web.app)
+Access the application here: [Live Application](<https://mind-mosaic.web.app>, _blank)
 
 ## Key Features
 
