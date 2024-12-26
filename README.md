@@ -1,4 +1,4 @@
-# Mind Mosaic
+# Web Application
 
 ## Purpose
 
@@ -6,7 +6,7 @@ This web application is designed to provide users with a seamless and interactiv
 
 ## Live URL
 
-Access the application here: [Live Application](<https://mind-mosaic.web.app>, _blank)
+Access the application here: [Live Application](https://mind-mosaic.web.app){:target="_blank"}
 
 ## Key Features
 
@@ -42,6 +42,32 @@ Access the application here: [Live Application](<https://mind-mosaic.web.app>, _
 - `react-icons`: v5.4.0
 - `react-router`: v7.1.0
 - `sweetalert2`: v11.15.3
+
+## Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository_url>
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd project-directory
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the application:
+
+   ```bash
+   npm start
+   ```
 
 ## Contributing
 
