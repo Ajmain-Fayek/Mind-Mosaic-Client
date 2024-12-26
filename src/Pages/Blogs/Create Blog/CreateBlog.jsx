@@ -97,7 +97,7 @@ const CreateBlog = () => {
                     <input
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         type="text"
-                        placeholder="Images attracts creates more interest in blog reading."
+                        placeholder="Images attracts more interest in blog reading."
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                     />
