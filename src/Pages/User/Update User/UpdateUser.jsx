@@ -22,11 +22,12 @@ const UpdateUser = () => {
                 `/api/users/${user?._id}`,
                 dataObject
             );
-            if (response.data.acknowledged)
+            if (response.data.acknowledged) {
+                setUser((prevUser) => ({ ...prevUser, ...dataObject }));
                 return navigate(`/profile/${user?._id}`);
+            }
 
             // Update the client-side user data in context after the successful update
-            setUser((prevUser) => ({ ...prevUser, ...dataObject }));
         } catch (error) {
             console.error("Error updating user:", error);
         }
