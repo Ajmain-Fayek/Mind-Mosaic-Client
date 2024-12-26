@@ -76,6 +76,7 @@ const CreateBlog = () => {
                     <input
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
+                        placeholder="A beautifull title attracts most people"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -92,6 +93,7 @@ const CreateBlog = () => {
                     <input
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         type="text"
+                        placeholder="Images attracts creates more interest in blog reading."
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                     />
@@ -105,6 +107,7 @@ const CreateBlog = () => {
                         Short Description:
                     </label>
                     <textarea
+                        placeholder="People gets excited reading overview of a log blog."
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         value={shortDescription}
@@ -120,6 +123,7 @@ const CreateBlog = () => {
                         Long Description:
                     </label>
                     <textarea
+                        placeholder="Authentic infomations increases popularity of blogs."
                         className="h-80 bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         value={longDescription}

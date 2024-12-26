@@ -76,6 +76,7 @@ const UpdateBlog = () => {
                         Title:
                     </label>
                     <input
+                        placeholder="A beautifull title attracts most people"
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         type="text"
@@ -92,6 +93,7 @@ const UpdateBlog = () => {
                         Image URL:
                     </label>
                     <input
+                        laceholder="Images attracts creates more interest in blog reading."
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         type="text"
                         defaultValue={data?.image}
@@ -107,6 +109,7 @@ const UpdateBlog = () => {
                         Short Description:
                     </label>
                     <textarea
+                        placeholder="People gets excited reading overview of a log blog."
                         className="bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         defaultValue={data?.shortDescription}
@@ -122,6 +125,7 @@ const UpdateBlog = () => {
                         Long Description:
                     </label>
                     <textarea
+                        placeholder="Authentic infomations increases popularity of blogs."
                         className="h-80 bg-transparent border-semi-light outline-semi-light focus:ring-0"
                         required
                         defaultValue={data?.longDescription}

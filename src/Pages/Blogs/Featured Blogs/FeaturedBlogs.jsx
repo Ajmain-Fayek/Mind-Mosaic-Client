@@ -11,6 +11,7 @@ import { useThemeContext } from "../../../Hooks/useThemeContext";
 import { CgDetailsMore } from "react-icons/cg";
 import { TbJewishStarFilled } from "react-icons/tb";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
+import Swal from "sweetalert2";
 
 const FeaturedBlogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -42,7 +43,14 @@ const FeaturedBlogs = () => {
         wishlist.some((item) => item.blogId === id);
 
     const handleWishlist = (blog) => {
-        if (!user) return;
+        if (!user) {
+            return Swal.fire({
+                title: "Login First",
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
         axiosFetch
             .post("/api/wishlist", {
                 blogId: blog._id,
