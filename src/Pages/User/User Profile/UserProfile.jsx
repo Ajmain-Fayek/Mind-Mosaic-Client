@@ -15,7 +15,7 @@ const UserProfile = () => {
                 />
                 <img
                     src={user?.profileImage}
-                    className="w-40 rounded-full object-cover -mt-20"
+                    className="w-40 rounded-full border object-cover -mt-20"
                     alt={user?.userName}
                 />
             </div>

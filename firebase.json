@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "dist",
+    "site": "mind-mosaic",
     "ignore": [
       "firebase.json",
       "**/.*",

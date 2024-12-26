@@ -6,6 +6,7 @@ import Aside from "../../Common/Aside";
 import BlogCard from "../../Common/BlogCard";
 import { useAxios } from "../../Hooks/useAxios";
 import { Spinner } from "flowbite-react";
+import FollowUsAside from "../../Common/FollowUsAside";
 
 const HomePage = () => {
     const { theme } = useThemeContext();
@@ -62,7 +63,7 @@ const HomePage = () => {
                     </>
                 )}
 
-                <Aside className="hidden lg:block" />
+                <FollowUsAside className="hidden lg:block" />
             </div>
         </>
     );

@@ -1,6 +1,7 @@
 // import { useNavigate } from "react-router";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import { useThemeContext } from "../Hooks/useThemeContext";
+import { format } from "date-fns";
 
 const Aside = ({ className }) => {
     const { user } = useAuthContext();
@@ -48,8 +49,8 @@ const Aside = ({ className }) => {
                     </div>
                     <div className="border-t border-semi-dark rounded-full" />
                     {/* Work */}
-                    <div>
-                        <p className="font-semibold text-lg">Web Programmer</p>
+                    <div className="text-center">
+                        <p className="font-semibold text-lg">CEO</p>
                         <p
                             className={`font-semibold ${
                                 theme === "light"
@@ -57,13 +58,13 @@ const Aside = ({ className }) => {
                                     : "text-[#d0ebb7]"
                             }`}
                         >
-                            CEO Mind Mosaic
+                            Mind Mosaic
                         </p>
                     </div>
                     <div className="border-t border-semi-dark rounded-full" />
                     {/* Account Created */}
 
-                    <div>Since: 2024</div>
+                    <div className="text-center">Since: 2024</div>
                 </div>
             </>
         );
@@ -76,26 +77,26 @@ const Aside = ({ className }) => {
                     : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
             }`}
         >
-            <div className="text-center">
+            <div className="text-center flex flex-col">
                 <img
                     className="w-full max-h-24 object-cover rounded-md z-0 bg-semi-dark"
                     src={
-                        user?.profileCover
-                            ? user.profileCover
-                            : "https://i.ibb.co.com/0fBLvFw/15.jpg"
+                        user?.coverImage ||
+                        "https://i.ibb.co.com/0fBLvFw/15.jpg"
                     }
                     alt=""
                 />
+
                 <img
-                    className="max-w-24 max-h-24 block mx-auto -mt-12 border border-light z-[999999] shadow-md object-cover rounded-full"
+                    className="max-w-24 max-h-24 mx-auto object-cover -mt-12 z-50 border shadow-md rounded-full"
                     src={
-                        user?.profileImage
-                            ? user.profileImage
-                            : "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
+                        user?.profileImage ||
+                        "https://i.ibb.co.com/fY42dcJ/Avater2.jpg"
                     }
                 />
+
                 <p className="text-center text-xl font-semibold mt-2">
-                    {user?.userName ? user.userName : "Your Name?"}
+                    {user?.userName || "Your Name?"}
                 </p>
                 <span
                     className={`font-semibold ${
@@ -109,24 +110,23 @@ const Aside = ({ className }) => {
             {/* Work */}
             <div className="text-center">
                 <p className="font-semibold text-lg">
-                    {user?.workDesignation
-                        ? user.workDesignation
-                        : "your work title shows here"}
+                    {user?.workDesignation || "your work title shows here"}
                 </p>
                 <p
                     className={`font-semibold ${
                         theme === "light" ? "text-semi-dark" : "text-[#d0ebb7]"
                     }`}
                 >
-                    {user?.companyName
-                        ? user.companyName
-                        : "your company name shows here"}
+                    {user?.companyName || "your company name shows here"}
                 </p>
             </div>
             <div className="border-t border-semi-dark rounded-full" />
             {/* Account Created */}
 
-            <div className="text-center">{`Since: ${user?.accountCreatedOn}`}</div>
+            <div className="text-center">{`Since: ${format(
+                new Date(user.accountCreatedOn),
+                "dd MMMM, yyyy"
+            )}`}</div>
         </div>
     );
 };
