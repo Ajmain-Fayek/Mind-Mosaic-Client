@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { format } from "date-fns";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import { useAxios } from "../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const BlogCard = ({ blog }) => {
     const navigate = useNavigate();
@@ -44,7 +45,14 @@ const BlogCard = ({ blog }) => {
     }, [user, _id, axiosFetch]);
 
     const handleWishlist = () => {
-        if (!user) return;
+        if (!user) {
+            return Swal.fire({
+                title: "Login First",
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
         axiosFetch
             .post("/api/wishlist", {
                 blogId: _id,

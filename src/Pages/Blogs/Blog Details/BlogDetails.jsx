@@ -7,6 +7,7 @@ import { format, formatISO } from "date-fns";
 import { useAxios } from "../../../Hooks/useAxios";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FiEdit } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 const BlogDetails = () => {
     const data = useLoaderData();
@@ -46,7 +47,14 @@ const BlogDetails = () => {
     );
 
     const handleWishlist = () => {
-        if (!user) return;
+        if (!user) {
+            return Swal.fire({
+                title: "Login First",
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
         axiosFetch
             .post("/api/wishlist", {
                 blogId: data?._id,

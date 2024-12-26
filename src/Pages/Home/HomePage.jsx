@@ -47,11 +47,25 @@ const HomePage = () => {
             <div className="p-6 flex justify-between items-start gap-4 w-full">
                 <Aside className={"hidden md:block"} />
                 {blogs ? (
-                    <div className="max-w-[794px] w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mx-auto justify-items-center items-start content-start">
-                        {blogs.map((blog) => (
-                            <BlogCard key={blog._id} blog={blog} />
-                        ))}
-                    </div>
+                    <>
+                        <div className="space-y-2">
+                            <span
+                                className={` font-semibold text-lg ${
+                                    theme === "light"
+                                        ? "text-dark"
+                                        : "text-light"
+                                }`}
+                            >
+                                Most Recent Blogs
+                            </span>
+                            <div className="border-t"></div>
+                            <div className="max-w-[794px] w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mx-auto justify-items-center items-start content-start">
+                                {blogs.map((blog) => (
+                                    <BlogCard key={blog._id} blog={blog} />
+                                ))}
+                            </div>
+                        </div>
+                    </>
                 ) : (
                     <>
                         <div className="text-center">

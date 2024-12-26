@@ -124,10 +124,10 @@ const NavBar = () => {
                         >
                             Register
                         </Link>
+                        <Navbar.Toggle className="ml-2 bg-transparent" />
                     </>
                 )}
             </div>
-
             <Navbar.Collapse className="ml-6 md:m-0">
                 <NavLink to={"/"}>Home</NavLink>
                 <NavLink className={"mt-4 md:m-0"} to={"/blogs/featured-blogs"}>
