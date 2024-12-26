@@ -10,7 +10,7 @@ const UserProfile = () => {
     return (
         <div className="max-w-[1175px] w-full mx-auto flex flex-col justify-center items-center mb-10">
             <Helmet>
-                <title>Profile: {user.userName}</title>
+                <title>Profile: {user?.userName || user?.email}</title>
             </Helmet>
             <div className="w-full relative flex flex-col items-center">
                 <img
