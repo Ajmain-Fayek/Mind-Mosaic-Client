@@ -1,10 +1,9 @@
-# Web Application
+# Mind Mosaic
 
 ## Purpose
 
 This web application is designed to provide users with a seamless and interactive platform for exploring, managing, and sharing content. It leverages modern web technologies to ensure a responsive, efficient, and user-friendly experience.
 
-## Assignment variant is: <a href="https://drive.google.com/file/d/1-1PXKpTEZS51TEa2dUYIV-POHhUBGfUQ/view?usp=sharing" target="_blank">Assignment_category_05</a>
 
 ## Live URL
 
