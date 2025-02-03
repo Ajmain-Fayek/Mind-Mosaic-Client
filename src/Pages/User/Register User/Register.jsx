@@ -96,89 +96,50 @@ const Register = () => {
                 <title>Register in to MindMosaic</title>
             </Helmet>
             <Card
-                className={`max-w-sm w-full ${
-                    theme === "light"
-                        ? "text-dark bg-light "
-                        : "text-light bg-dark"
-                }`}
+                className={`max-w-sm w-full bg-light text-black shadow-dark/25 shadow-lg`}
             >
-                <form
-                    onSubmit={handleRegister}
-                    className={`flex flex-col gap-4 ${
-                        theme === "light"
-                            ? "text-dark bg-light "
-                            : "text-light bg-dark"
-                    }`}
-                >
+                <form onSubmit={handleRegister} className="flex flex-col gap-4">
                     <div>
                         <div className="mb-2 block">
-                            <Label
-                                className={` ${
-                                    theme === "light"
-                                        ? "text-dark bg-light "
-                                        : "text-light bg-dark"
-                                }`}
-                                htmlFor="email1"
-                                value="Your email"
-                            />
+                            <Label htmlFor="email1" value="Your email" />
                         </div>
-                        <TextInput
+                        <input
                             id="email1"
                             type="email"
                             name="email"
                             ref={emailRef}
-                            placeholder="name@flowbite.com"
+                            placeholder="your@email.com"
                             required
-                            className={
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }
+                            className="bg-light w-full rounded-md border-dark/25 focus:border-dark/75 ring-0 focus:ring-0"
                         />
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label
-                                className={
-                                    theme === "light"
-                                        ? "text-dark bg-light "
-                                        : "text-light bg-dark"
-                                }
-                                htmlFor="password1"
-                                value="Your password"
-                            />
+                            <Label htmlFor="password1" value="Your password" />
                         </div>
-                        <TextInput
+                        <input
                             ref={passwordRef}
-                            className={`${
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }`}
+                            className="bg-light w-full rounded-md border-dark/25 focus:border-dark/75 ring-0 focus:ring-0"
                             id="password1"
                             type="password"
                             name="password"
                             required
+                            placeholder="New Password"
                         />
+                        {/* Error Message */}
+                        {errorMessage && (
+                            <div className="mx-auto">
+                                <span className="text-red-600 text-sm">
+                                    {errorMessage}
+                                </span>
+                            </div>
+                        )}
                     </div>
 
-                    <Button
-                        type="submit"
-                        className={
-                            theme === "light"
-                                ? "text-dark bg-semi-light "
-                                : "text-light bg-semi-dark"
-                        }
-                    >
+                    <Button type="submit" className="bg-dark hover:bg-dark">
                         Register
                     </Button>
                 </form>
-                {/* Error Message */}
-                {errorMessage && (
-                    <div className="mt-2">
-                        <span className="text-red-400">{errorMessage}</span>
-                    </div>
-                )}
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={register_lottie} />

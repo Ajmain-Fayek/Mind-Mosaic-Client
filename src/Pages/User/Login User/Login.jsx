@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
-import { useThemeContext } from "../../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
 import login_lottie from "./Components/login_lottie.json";
 import { useAuthContext } from "../../../Hooks/useAuthContext";
@@ -11,7 +10,6 @@ import { formatISO } from "date-fns";
 import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-    const { theme } = useThemeContext();
     const { user } = useAuthContext();
     const { signInUser, signInWithGoogle } = useAuthContext();
     const axiosSecure = useAxios();
@@ -80,105 +78,65 @@ const Login = () => {
                 <title>Login in to MindMosaic</title>
             </Helmet>
             <Card
-                className={`max-w-sm w-full ${
-                    theme === "light"
-                        ? "text-dark bg-light "
-                        : "text-light bg-dark"
-                }`}
+                className={`max-w-sm w-full bg-light text-black shadow-dark/25 shadow-lg`}
             >
-                <form
-                    onSubmit={handleLogin}
-                    className={`flex flex-col gap-4 ${
-                        theme === "light"
-                            ? "text-dark bg-light "
-                            : "text-light bg-dark"
-                    }`}
-                >
+                <form onSubmit={handleLogin} className={`flex flex-col gap-4`}>
                     <div>
                         <div className="mb-2 block">
-                            <Label
-                                className={` ${
-                                    theme === "light"
-                                        ? "text-dark bg-light "
-                                        : "text-light bg-dark"
-                                }`}
-                                htmlFor="email1"
-                                value="Your email"
-                            />
+                            <Label htmlFor="email1" value="Your email" />
                         </div>
-                        <TextInput
+                        <input
                             id="email1"
                             type="email"
                             name="email"
                             ref={emailRef}
-                            placeholder="name@flowbite.com"
+                            placeholder="Email"
                             required
-                            className={
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }
+                            className="bg-light w-full rounded-md border-dark/25 focus:border-dark/75 ring-0 focus:ring-0"
                         />
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label
-                                className={
-                                    theme === "light"
-                                        ? "text-dark bg-light "
-                                        : "text-light bg-dark"
-                                }
-                                htmlFor="password1"
-                                value="Your password"
-                            />
+                            <Label htmlFor="password1" value="Your password" />
                         </div>
-                        <TextInput
-                            className={`${
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }`}
+                        <input
                             id="password1"
                             type="password"
                             name="password"
                             ref={passwordRef}
+                            placeholder="Password"
                             required
+                            className="bg-light w-full rounded-md border-dark/25 focus:border-dark/75 ring-0 focus:ring-0"
                         />
                     </div>
                     <div className="flex items-center gap-2">
-                        <Checkbox id="remember" />
-                        <Label
-                            className={` ${
-                                theme === "light"
-                                    ? "text-dark bg-light "
-                                    : "text-light bg-dark"
-                            }`}
-                            htmlFor="remember"
-                        >
-                            Remember me
-                        </Label>
+                        <Checkbox
+                            id="remember"
+                            className="bg-light border-dark/50 focus:ring-0 focus:outline-none focus:shadow-none"
+                        />
+                        <Label htmlFor="remember">Remember me</Label>
                     </div>
-                    <Button
-                        type="submit"
-                        className={
-                            theme === "light"
-                                ? "text-dark bg-semi-light "
-                                : "text-light bg-semi-dark"
-                        }
-                    >
+                    <Button type="submit" className="bg-dark hover:bg-dark">
                         Login
                     </Button>
                 </form>
-                <div className="border-t"></div>
+                {/* Error Message */}
+                {errorMessage && (
+                    <div className="my-0.5 mx-auto">
+                        <span className="text-red-600 text-sm">
+                            {errorMessage}
+                        </span>
+                    </div>
+                )}
+                {/* OR Devider */}
+                <div className="flex w-full items-center justify-evenly">
+                    <div className="border-t border-dark w-full"></div>
+                    <div className="w-fit px-1">OR</div>
+                    <div className="border-t border-dark w-full"></div>
+                </div>
                 <button onClick={handleGoogleSignin} className="mx-auto">
                     <FcGoogle fontSize={"2rem"} />
                 </button>
-                {/* Error Message */}
-                {errorMessage && (
-                    <div className="mt-2">
-                        <span className="text-red-400">{errorMessage}</span>
-                    </div>
-                )}
             </Card>
             <div className="max-w-60">
                 <Lottie animationData={login_lottie} />

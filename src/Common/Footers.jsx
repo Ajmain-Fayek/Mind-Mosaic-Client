@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "../assets/Logo.png";
-import { useThemeContext } from "../Hooks/useThemeContext";
 import { Footer } from "flowbite-react";
 import {
     BsDribbble,
@@ -12,33 +11,26 @@ import {
 import { useNavigate } from "react-router";
 
 const Footers = () => {
-    const { theme } = useThemeContext();
     const navigate = useNavigate();
     return (
         <Footer
             container
-            className={`2xl:px-10 border-b shadow-sm rounded-none border-t ${
-                theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
-            }`}
+            className={`2xl:px-10 border-b shadow-sm rounded-none border-t bg-dark text-light`}
         >
-            <div className="w-full">
+            <div className="w-full max-w-screen-2xl mx-auto">
                 <div className="grid gap-6 md:gap-0 w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
                     <div
                         onClick={() => navigate("/")}
                         className="flex items-center cursor-pointer"
                     >
                         <Footer.Brand
-                            className={`${
-                                theme === "dark" ? "text-light" : "text-dark"
-                            }`}
+                            className={`text-light`}
                             src={logo}
                             alt="Mind Mosaic Logo"
                             name="Mind Mosaic"
                         />
                         <span
-                            className={`self-center whitespace-nowrap text-xl font-semibold ${
-                                theme === "light" ? "text-dark" : "text-light"
-                            }`}
+                            className={`self-center whitespace-nowrap text-xl font-semibold text-light`}
                         >
                             Mind Mosaic
                         </span>
@@ -47,20 +39,9 @@ const Footers = () => {
                         <div>
                             <Footer.Title
                                 title="About"
-                                className={
-                                    theme === "light"
-                                        ? "text-dark"
-                                        : "text-light"
-                                }
+                                className="text-light"
                             />
-                            <Footer.LinkGroup
-                                col
-                                className={
-                                    theme === "light"
-                                        ? "text-semi-dark"
-                                        : "text-semi-light"
-                                }
-                            >
+                            <Footer.LinkGroup col className={"text-semi-light"}>
                                 <Footer.Link
                                     href="https://flowbite-react.com/"
                                     target="_black"
@@ -78,20 +59,9 @@ const Footers = () => {
                         <div>
                             <Footer.Title
                                 title="Follow us"
-                                className={
-                                    theme === "light"
-                                        ? "text-dark"
-                                        : "text-light"
-                                }
+                                className={"text-light"}
                             />
-                            <Footer.LinkGroup
-                                col
-                                className={
-                                    theme === "light"
-                                        ? "text-semi-dark"
-                                        : "text-semi-light"
-                                }
-                            >
+                            <Footer.LinkGroup col className={"text-semi-light"}>
                                 <Footer.Link
                                     href="https://github.com"
                                     target="_blank"
@@ -109,20 +79,9 @@ const Footers = () => {
                         <div>
                             <Footer.Title
                                 title="Legal"
-                                className={
-                                    theme === "light"
-                                        ? "text-dark"
-                                        : "text-light"
-                                }
+                                className={"text-light"}
                             />
-                            <Footer.LinkGroup
-                                col
-                                className={
-                                    theme === "light"
-                                        ? "text-semi-dark"
-                                        : "text-semi-light"
-                                }
-                            >
+                            <Footer.LinkGroup col className={"text-semi-light"}>
                                 <Footer.Link href="#">
                                     Privacy Policy
                                 </Footer.Link>
@@ -133,33 +92,17 @@ const Footers = () => {
                         </div>
                     </div>
                 </div>
-                <Footer.Divider
-                    className={
-                        theme === "light"
-                            ? "border-semi-light"
-                            : "border-semi-dark"
-                    }
-                />
+                <Footer.Divider className={"border-semi-dark"} />
                 <div
-                    className={`w-full sm:flex sm:items-center sm:justify-between ${
-                        theme === "light" ? "text-gray-500" : "text-gray-400"
-                    }`}
+                    className={`w-full sm:flex sm:items-center sm:justify-between text-gray-400`}
                 >
                     <Footer.Copyright
                         by="Mind Mosaic™"
                         year={2024}
-                        className={
-                            theme === "light"
-                                ? "text-semi-dark"
-                                : "text-semi-light"
-                        }
+                        className={"text-semi-light"}
                     />
                     <div
-                        className={`mt-4 flex space-x-6 sm:mt-0 sm:justify-center ${
-                            theme === "light"
-                                ? "text-semi-dark"
-                                : "text-semi-light"
-                        }`}
+                        className={`mt-4 flex space-x-6 sm:mt-0 sm:justify-center  text-semi-light`}
                     >
                         <Footer.Icon icon={BsFacebook} />
                         <Footer.Icon icon={BsInstagram} />

@@ -1,22 +1,16 @@
 // import { useNavigate } from "react-router";
 import { useAuthContext } from "../Hooks/useAuthContext";
-import { useThemeContext } from "../Hooks/useThemeContext";
 import { format } from "date-fns";
 
 const Aside = ({ className }) => {
     const { user } = useAuthContext();
-    const { theme } = useThemeContext();
     // const navigate = useNavigate();
 
     if (!user)
         return (
             <>
                 <div
-                    className={`max-w-80 w-full p-4 rounded-xl ${className} ${
-                        theme === "light"
-                            ? "bg-gradient-to-r from-light  to-semi-light text-dark"
-                            : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
-                    }`}
+                    className={`max-w-80 w-full p-4 rounded-xl ${className} bg-gradient-to-r from-light  to-semi-light text-dark`}
                 >
                     <div className="text-center">
                         <img
@@ -38,11 +32,7 @@ const Aside = ({ className }) => {
                                     "_blank"
                                 )
                             }
-                            className={`font-semibold hover:underline cursor-pointer ${
-                                theme === "light"
-                                    ? "text-semi-dark"
-                                    : "text-[#d0ebb7]"
-                            }`}
+                            className={`font-semibold hover:underline cursor-pointer text-semi-dark`}
                         >
                             @Ajmain-Fayek
                         </span>
@@ -51,13 +41,7 @@ const Aside = ({ className }) => {
                     {/* Work */}
                     <div className="text-center">
                         <p className="font-semibold text-lg">CEO</p>
-                        <p
-                            className={`font-semibold ${
-                                theme === "light"
-                                    ? "text-semi-dark"
-                                    : "text-[#d0ebb7]"
-                            }`}
-                        >
+                        <p className={`font-semibold text-semi-dark`}>
                             Mind Mosaic
                         </p>
                     </div>
@@ -71,11 +55,7 @@ const Aside = ({ className }) => {
 
     return (
         <div
-            className={`max-w-80 p-4 rounded-xl w-full ${className} ${
-                theme === "light"
-                    ? "bg-gradient-to-r from-light  to-semi-light text-dark"
-                    : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
-            }`}
+            className={`max-w-80 p-4 rounded-xl w-full ${className} bg-gradient-to-r from-light  to-semi-light text-dark`}
         >
             <div className="text-center flex flex-col">
                 <img
@@ -99,11 +79,7 @@ const Aside = ({ className }) => {
                 <p className="text-center text-xl font-semibold mt-2">
                     {user?.userName || "Your Name?"}
                 </p>
-                <span
-                    className={`font-semibold ${
-                        theme === "light" ? "text-semi-dark" : "text-[#d0ebb7]"
-                    }`}
-                >
+                <span className={`font-semibold text-semi-dark`}>
                     {user.email}
                 </span>
             </div>
@@ -113,11 +89,7 @@ const Aside = ({ className }) => {
                 <p className="font-semibold text-lg">
                     {user?.workDesignation || "your work title shows here"}
                 </p>
-                <p
-                    className={`font-semibold ${
-                        theme === "light" ? "text-semi-dark" : "text-[#d0ebb7]"
-                    }`}
-                >
+                <p className={`font-semibold text-semi-dark`}>
                     {user?.companyName || "your company name shows here"}
                 </p>
             </div>

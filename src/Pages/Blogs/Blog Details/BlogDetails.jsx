@@ -9,6 +9,7 @@ import { useAuthContext } from "../../../Hooks/useAuthContext";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { Slide, toast } from "react-toastify";
 
 const BlogDetails = () => {
     const data = useLoaderData();
@@ -70,6 +71,19 @@ const BlogDetails = () => {
             })
             .then((res) => {
                 // console.log(res.data);
+                if (res.data.insertedId) {
+                    toast.success("Wished Success!", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Slide,
+                    });
+                }
                 setIsInWishlist(true);
             });
     };
@@ -108,6 +122,19 @@ const BlogDetails = () => {
             })
             .then((res) => {
                 // console.log(res.data);
+                if (res.data.insertedId) {
+                    toast.success("Comment Success!", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Slide,
+                    });
+                }
                 axiosFetch.get(`/api/comments/${data._id}`).then((res) => {
                     setComments(res.data);
                     // console.log(res.data);
@@ -132,185 +159,165 @@ const BlogDetails = () => {
             <Helmet>
                 <title>{data.title || "Blog Details"}</title>
             </Helmet>
-            <div className="mx-2">
-                <div className="max-w-6xl space-y-6 mx-auto w-full p-2">
-                    <div
-                        className={`mx-auto w-full p-2 rounded-lg border shadow-md ${
-                            theme === "light"
-                                ? "bg-light text-dark"
-                                : "bg-semi-dark text-light"
-                        }`}
-                    >
-                        <div className="flex items-center relative gap-2">
-                            <span
-                                className={`absolute right-0 top-1 text-sm text-light border px-1.5 font-semibold rounded-full ${
-                                    theme === "light"
-                                        ? "bg-semi-light border-dark"
-                                        : "bg-dark"
-                                }`}
-                            >
-                                {data.category}
-                            </span>
-                            <div>
-                                <img
-                                    className="w-10 h-10 rounded-full object-cover bg-semi-light"
-                                    src={
-                                        data?.userImage
-                                            ? data.userImage
-                                            : "https://i.ibb.co.com/0fBLvFw/15.jpg"
-                                    }
-                                    alt=""
-                                />
-                            </div>
 
-                            <div>
-                                <p className={`font-semibold text-lg`}>
-                                    {data.userName}
-                                </p>
-                                <p className="text-xs">{userFriendlyDate}</p>
-                            </div>
+            <div className="max-w-screen-2xl md:px-6 space-y-6 mx-auto w-full">
+                <div
+                    className={`mx-auto w-full p-6 rounded-lg border shadow-dark/50 shadow-md bg-light text-black border-dark/50`}
+                >
+                    <div className="flex items-center relative gap-2">
+                        <span
+                            className={`absolute right-0 top-1 text-sm text-light border px-1.5 font-semibold rounded-full ${
+                                theme === "light"
+                                    ? "bg-semi-light border-dark"
+                                    : "bg-dark"
+                            }`}
+                        >
+                            {data.category}
+                        </span>
+                        <div>
+                            <img
+                                className="w-10 h-10 rounded-full object-cover bg-semi-light"
+                                src={
+                                    data?.userImage
+                                        ? data.userImage
+                                        : "https://i.ibb.co.com/0fBLvFw/15.jpg"
+                                }
+                                alt=""
+                            />
                         </div>
-                        <div className="border-t my-1.5" />
-                        {data?.updatedDateTime && (
-                            <span className="font-semibold my-4 block">
-                                Last Updated on:{" "}
-                                {format(
-                                    new Date(data?.updatedDateTime),
-                                    "dd MMMM, yyyy"
-                                )}
-                            </span>
-                        )}
-                        <div className="">
-                            <h1 className="text-lg font-semibold">
-                                {data.title}
-                            </h1>
-                            <p>{data.shortDescription}</p>
-                            {data?.image && (
-                                <img
-                                    className="w-10/12 mx-auto object-contain my-2 lg:h-96 md:h-80 sm:h-60 h-48"
-                                    src={data.image}
-                                    alt={`${data.title} reference photo`}
-                                />
-                            )}
-                            <p className="mt-2">{data.longDescription}</p>
 
-                            <div className="mt-4 flex justify-end gap-2">
+                        <div>
+                            <p className={`font-semibold text-lg`}>
+                                {data.userName}
+                            </p>
+                            <p className="text-xs">{userFriendlyDate}</p>
+                        </div>
+                    </div>
+                    <div className="border-t my-1.5" />
+                    {data?.updatedDateTime && (
+                        <span className="font-semibold my-4 block">
+                            Last Updated on:{" "}
+                            {format(
+                                new Date(data?.updatedDateTime),
+                                "dd MMMM, yyyy"
+                            )}
+                        </span>
+                    )}
+                    <div className="">
+                        <h1 className="text-lg font-semibold">{data.title}</h1>
+                        <p className="whitespace-pre-wrap my-4">
+                            {data.shortDescription}
+                        </p>
+                        {data?.image && (
+                            <img
+                                className="w-10/12 my-4 mx-auto object-contain lg:h-96 md:h-80 sm:h-60 h-48"
+                                src={data.image}
+                                alt={`${data.title} reference photo`}
+                            />
+                        )}
+                        <div className="py-4 whitespace-pre-wrap">
+                            {data.longDescription}
+                        </div>
+
+                        <div className="mt-4 flex justify-end gap-2">
+                            {user && (
                                 <button
                                     disabled={isInWishlist}
                                     onClick={handleWishlist}
-                                    className={`text-light ${
-                                        isInWishlist && "cursor-not-allowed"
-                                    } px-2 rounded-md border flex items-center gap-1.5 ${
-                                        theme === "light"
-                                            ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                            : "bg-dark hover:bg-semi-dark"
-                                    }`}
+                                    className={`${
+                                        isInWishlist
+                                            ? "cursor-not-allowed bg-semi-light hover:bg-semi-light hover:text-dark text-dark hover:border-dark border-dark"
+                                            : "bg-dark hover:bg-semi-dark hover:text-dark hover hover:border-dark text-light"
+                                    } px-3 py-1.5 rounded-md border flex items-center gap-1.5`}
                                 >
                                     <TbJewishStarFilled />
                                     {isInWishlist ? "In Wishlist" : "Wishlist"}
                                 </button>
-                                {user?._id === data.userId && (
-                                    <button
-                                        onClick={() =>
-                                            navigate(
-                                                `/blogs/update/${data._id}`
-                                            )
-                                        }
-                                        className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
-                                            theme === "light"
-                                                ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                                : "bg-dark hover:bg-semi-dark"
-                                        }`}
-                                    >
-                                        <FiEdit /> Update
-                                    </button>
-                                )}
-                            </div>
+                            )}
+
+                            {user?._id === data.userId && (
+                                <button
+                                    onClick={() =>
+                                        navigate(`/blogs/update/${data._id}`)
+                                    }
+                                    className={`bg-dark hover:bg-semi-dark hover:text-dark hover hover:border-dark text-light px-3 py-1.5 rounded-md border flex items-center gap-1.5`}
+                                >
+                                    <FiEdit /> Update Blog
+                                </button>
+                            )}
                         </div>
                     </div>
-
-                    {/* Comment */}
-                    <div
-                        className={`w-full p-2 rounded-lg border shadow-md ${
-                            theme === "light"
-                                ? "bg-light text-dark"
-                                : "bg-semi-dark text-light"
-                        }`}
-                    >
-                        <form onSubmit={(e) => handleComment(e)}>
-                            <div className="flex flex-col gap-2">
-                                <label className="text-lg font-semibold">
-                                    Comment:
-                                </label>
-                                <textarea
-                                    placeholder="Write your oppinions"
-                                    name="comment"
-                                    ref={commentRef}
-                                    className={`rounded-md ${
-                                        theme === "light"
-                                            ? "bg-light border-semi-dark"
-                                            : "bg-semi-dark placeholder:text-semi-light border-light"
-                                    }`}
-                                ></textarea>
-                            </div>
-                            <button
-                                type="submit"
-                                className={`text-light px-2 mt-2 rounded-md border ${
-                                    theme === "light"
-                                        ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                        : "bg-dark hover:bg-semi-dark"
-                                }`}
-                            >
-                                Submit
-                            </button>
-                        </form>
-
-                        {/* Error Message */}
-                        {errorMessagem && (
-                            <div className="mt-2">
-                                <span className="text-red-400">
-                                    {errorMessagem}
-                                </span>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Peoples Comments */}
-                    {coments &&
-                        coments.map((comment) => (
-                            <div key={comment._id} className="p-3">
-                                <div className="flex items-center relative gap-2">
-                                    <div>
-                                        <img
-                                            className="w-10 h-10 rounded-full bg-semi-light"
-                                            src={
-                                                comment?.userImage
-                                                    ? comment.userImage
-                                                    : "https://i.ibb.co.com/0fBLvFw/15.jpg"
-                                            }
-                                            alt=""
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <p className={`font-semibold text-lg`}>
-                                            {comment.userName}
-                                        </p>
-                                        <p className="text-xs">
-                                            {format(
-                                                new Date(
-                                                    comment.createdDateTime
-                                                ),
-                                                "dd MMMM, yyyy"
-                                            )}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="border-t my-1.5" />
-                                <p>{comment.comment}</p>
-                            </div>
-                        ))}
                 </div>
+
+                {/* Comment */}
+                <div
+                    className={`w-full p-2 rounded-lg border shadow-md bg-light text-black border-dark/35 shadow-dark/35`}
+                >
+                    <form onSubmit={(e) => handleComment(e)}>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-lg font-semibold">
+                                Comment:
+                            </label>
+                            <textarea
+                                placeholder="Write your oppinions"
+                                name="comment"
+                                ref={commentRef}
+                                className={`rounded-md bg-light border-semi-dark focus:border-dark/50 focus:outline-none focus:ring-0`}
+                            ></textarea>
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-dark mt-4 hover:bg-semi-dark hover:text-dark hover hover:border-dark text-light px-3 py-1.5 rounded-md border flex items-center gap-1.5"
+                        >
+                            Submit
+                        </button>
+                    </form>
+
+                    {/* Error Message */}
+                    {errorMessagem && (
+                        <div className="mt-2">
+                            <span className="text-red-600">
+                                {errorMessagem}
+                            </span>
+                        </div>
+                    )}
+                </div>
+
+                {/* Peoples Comments */}
+                {coments &&
+                    coments.map((comment) => (
+                        <div key={comment._id} className="p-3">
+                            <div className="flex items-center relative gap-2">
+                                <div>
+                                    <img
+                                        className="w-10 h-10 rounded-full bg-semi-light"
+                                        src={
+                                            comment?.userImage
+                                                ? comment.userImage
+                                                : "https://i.ibb.co.com/0fBLvFw/15.jpg"
+                                        }
+                                        alt=""
+                                    />
+                                </div>
+
+                                <div>
+                                    <p className={`font-semibold text-lg`}>
+                                        {comment.userName}
+                                    </p>
+                                    <p className="text-xs">
+                                        {format(
+                                            new Date(comment.createdDateTime),
+                                            "dd MMMM, yyyy"
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="border-t border-semi-dark my-1.5" />
+                            <p className="whitespace-pre-wrap">
+                                {comment.comment}
+                            </p>
+                        </div>
+                    ))}
             </div>
         </>
     );

@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.active {
-  color: #3fd31a;
+.Toastify__toast-container {
+    top: 70px;
 }
 
-.login-register-light .active{
-  color: #379600;
+.active {
+    color: #cdc2a5;
 }
-.login-register-dark .active{
-  color: #79f37f;
+
+.login-register-light .active {
+    color: #295f98;
 }

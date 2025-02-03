@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router";
-import NavBar from "../Common/Navbar";
+import NavBar from "../Common/NavBar";
 import Footers from "../Common/Footers";
 import { useThemeContext } from "../Hooks/useThemeContext";
 import NewsLater from "../Common/NewsLater";
@@ -16,49 +16,36 @@ const Home = () => {
             <Helmet>
                 <title>Home : Mind Mosaic</title>
             </Helmet>
-            <div
-                className={
-                    theme === "light"
-                        ? "bg-white text-dark"
-                        : "bg-dark text-light"
-                }
-            >
+            <div className="bg-light">
                 {/* NavBar */}
                 <div className="sticky top-0 z-[9999]">
                     <NavBar />
                 </div>
 
                 {/* Outlet */}
-                <div>
+                <div className="">
                     <Outlet />
                 </div>
-                <div className="border-t mt-6"></div>
-                {/* News Letter */}
-                <div className="my-10 mx-2">
-                    <NewsLater />
-                </div>
-                <div className="border-t mt-6"></div>
+
                 {/* Join Mind Mosaic */}
-                <div className="my-10">
+                <div className="py-10 bg-dark">
                     <JoinMindMosaic />
                 </div>
-                <div className="border-t mt-6"></div>
+
                 {/* Accordion */}
-                <div className="max-w-7xl mx-auto my-10 space-y-4">
+                <div className="max-w-screen-2xl mx-auto my-10 space-y-4">
                     <h4 className="text-2xl lg:text-4xl font-semibold text-center">
-                        You Ask We Answer
+                        You Ask We Answer!
                     </h4>
-                    <div
-                        className={
-                            theme === "light"
-                                ? "bg-light text-dark"
-                                : "bg-dark text-light"
-                        }
-                    >
+                    <div className="text-black px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10">
                         <FAQAccordion />
                     </div>
                 </div>
 
+                {/* News Letter */}
+                <div className="py-10">
+                    <NewsLater />
+                </div>
                 {/* Footer */}
                 <Footers />
             </div>

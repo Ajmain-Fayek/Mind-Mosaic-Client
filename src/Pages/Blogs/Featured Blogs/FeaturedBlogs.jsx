@@ -107,26 +107,21 @@ const FeaturedBlogs = () => {
                     const blog = info.row.original;
                     return (
                         <div className="flex flex-wrap gap-2">
+                            {user && (
+                                <button
+                                    disabled={isBlogInWishlist(blog._id)}
+                                    onClick={() => handleWishlist(blog)}
+                                    className={`text-black px-3 py-1.5 rounded-md border border-dark flex items-center gap-1.5 bg-transparent hover:shadow-md hover:bg-semi-dark`}
+                                >
+                                    <TbJewishStarFilled />
+                                    {isBlogInWishlist(blog._id)
+                                        ? "In Wishlist"
+                                        : "Wishlist"}
+                                </button>
+                            )}
+
                             <button
-                                disabled={isBlogInWishlist(blog._id)}
-                                onClick={() => handleWishlist(blog)}
-                                className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
-                                    theme === "light"
-                                        ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                        : "bg-dark hover:bg-semi-dark"
-                                }`}
-                            >
-                                <TbJewishStarFilled />
-                                {isBlogInWishlist(blog._id)
-                                    ? "In Wishlist"
-                                    : "Wishlist"}
-                            </button>
-                            <button
-                                className={`text-light px-2 rounded-md border flex items-center gap-1.5 ${
-                                    theme === "light"
-                                        ? "bg-semi-light hover:bg-semi-dark border-semi-dark"
-                                        : "bg-dark hover:bg-semi-dark"
-                                }`}
+                                className={`text-black px-3 py-1.5 rounded-md border border-dark flex items-center gap-1.5 bg-transparent hover:shadow-md hover:bg-semi-dark`}
                                 onClick={() =>
                                     navigate(`/blogs/details/${blog._id}`)
                                 }
@@ -153,16 +148,16 @@ const FeaturedBlogs = () => {
             <Helmet>
                 <title>Top 10 Featured blogs of MindMosaic</title>
             </Helmet>
-            <h1 className="text-xl w-fit text-center mx-auto mb-5 font-semibold border border-semi-light px-4 py-2 rounded-lg">
+            <h1 className="text-xl w-fit text-center text-dark mx-auto mb-5 font-semibold border border-dark px-4 py-2 rounded-lg">
                 Featured Blog
             </h1>
             <table className="min-w-full">
-                <thead className="border">
+                <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
                                 <th
-                                    className="border text-left px-2 py-1 bg-semi-light cursor-pointer"
+                                    className="border border-dark text-left px-2 py-1 cursor-pointer"
                                     key={header.id}
                                     onClick={header.column.getToggleSortingHandler()}
                                 >
@@ -182,9 +177,12 @@ const FeaturedBlogs = () => {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map((row) => (
-                        <tr key={row.id}>
+                        <tr className="hover:bg-semi-light" key={row.id}>
                             {row.getVisibleCells().map((cell) => (
-                                <td className="border px-2 py-1" key={cell.id}>
+                                <td
+                                    className="border border-dark px-2 py-1"
+                                    key={cell.id}
+                                >
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()

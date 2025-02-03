@@ -1,26 +1,20 @@
 import React from "react";
-import NavBar from "../Common/Navbar";
 import { Outlet } from "react-router";
 import Footers from "../Common/Footers";
-import { useThemeContext } from "../Hooks/useThemeContext";
+import NavBar from "../Common/NavBar";
 
 const Profile = () => {
-    const { theme } = useThemeContext();
     return (
         <>
-            <div className="sticky top-0 z-[9999]">
-                <NavBar />
+            <div className="bg-light ">
+                <div className="sticky top-0 z-[9999]">
+                    <NavBar />
+                </div>
+                <div className="my-6 px-2 min-h-[calc(100vh-355px)]">
+                    <Outlet />
+                </div>
+                <Footers />
             </div>
-            <div
-                className={`px-2 min-h-[635px] py-6 ${
-                    theme === "light"
-                        ? "bg-white text-dark"
-                        : "bg-dark text-light"
-                }`}
-            >
-                <Outlet />
-            </div>
-            <Footers />
         </>
     );
 };

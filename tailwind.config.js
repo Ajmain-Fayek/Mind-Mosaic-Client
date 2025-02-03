@@ -5,10 +5,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                dark: "#1a1a19",
-                "semi-dark": "#31511e",
-                "semi-light": "#859f3d",
-                light: "#f6fcdf",
+                dark: "#295F98",
+                "semi-dark": "#CDC2A5",
+                "semi-light": "#E1D7C6",
+                light: "#EAE4DD",
             },
         },
     },

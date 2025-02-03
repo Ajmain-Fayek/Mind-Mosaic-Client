@@ -1,19 +1,13 @@
 import React from "react";
-import { useThemeContext } from "../Hooks/useThemeContext";
 import { Link } from "react-router";
 import { FaFacebookSquare } from "react-icons/fa";
 import { TfiGithub } from "react-icons/tfi";
 import { SiLinkedin } from "react-icons/si";
 
 const FollowUsAside = ({ className }) => {
-    const { theme } = useThemeContext();
     return (
         <div
-            className={`max-w-80 w-full p-4 rounded-xl ${className} ${
-                theme === "light"
-                    ? "bg-gradient-to-r from-light  to-semi-light text-dark"
-                    : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
-            }`}
+            className={`max-w-80 w-full p-4 rounded-xl bg-gradient-to-r from-light  to-semi-light text-dark`}
         >
             <div className="space-y-2">
                 <span className="font-semibold text-lg">Follow us on</span>

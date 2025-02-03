@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useThemeContext } from "../../Hooks/useThemeContext";
 import Lottie from "lottie-react";
 import lottie from "./Components/Banner.json";
-import Aside from "../../Common/Aside";
 import BlogCard from "../../Common/BlogCard";
 import { useAxios } from "../../Hooks/useAxios";
 import { Spinner } from "flowbite-react";
-import FollowUsAside from "../../Common/FollowUsAside";
 import { motion } from "framer-motion";
 
 const HomePage = () => {
@@ -25,19 +23,15 @@ const HomePage = () => {
 
     return (
         <>
-            <div className="p-6">
+            <div>
                 <div
-                    className={`py-14 px-4 rounded-3xl flex flex-col-reverse md:flex-row items-center justify-center gap-4 ${
-                        theme === "light"
-                            ? "bg-gradient-to-r from-light  to-semi-light text-dark"
-                            : "bg-gradient-to-r from-semi-light  to-semi-dark text-light"
-                    }`}
+                    className={`py-14 px-2 flex flex-col-reverse md:flex-row items-center justify-center gap-4 bg-dark text-light`}
                 >
                     <div className="max-w-xs">
                         <Lottie animationData={lottie} />
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl xl:text-4xl font-semibold max-w-2xl tracking-wide">
+                        <h1 className="text-2xl md:text-3xl text-center px-8 md:px-0 md:text-left xl:text-4xl font-semibold max-w-2xl tracking-wide">
                             Unleash Your Creativity, Piece by Piece – Welcome to
                             MindMosaic!
                         </h1>
@@ -45,49 +39,50 @@ const HomePage = () => {
                 </div>
             </div>
             {/* Aside */}
-            <div className="p-6 flex justify-between items-start gap-4 w-full">
-                <Aside className={"hidden md:block"} />
-                {blogs ? (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.5,
-                                delay: 0.3,
-                                ease: [0, 0.71, 0.2, 1.01],
-                            }}
-                            className="space-y-2 box"
-                        >
-                            <span
-                                className={` font-semibold text-lg ${
-                                    theme === "light"
-                                        ? "text-dark"
-                                        : "text-light"
-                                }`}
+            <div className="bg-light py-10">
+                <div className="mx-auto max-w-screen-2xl px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 flex justify-between items-start gap-4 w-full">
+                    {/* <Aside className={"hidden md:block"} /> */}
+                    {blogs ? (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{
+                                    duration: 0.5,
+                                    delay: 0.3,
+                                    ease: [0, 0.71, 0.2, 1.01],
+                                }}
+                                className="space-y-2"
                             >
-                                Most Recent Blogs
-                            </span>
-                            <div className="border-t"></div>
-                            <div className="max-w-[794px] w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mx-auto justify-items-center items-start content-start">
-                                {blogs.map((blog) => (
-                                    <BlogCard key={blog._id} blog={blog} />
-                                ))}
+                                <span
+                                    className={` font-semibold text-lg ${
+                                        theme ? "text-black" : "text-black"
+                                    }`}
+                                >
+                                    Most Recent Blogs
+                                </span>
+                                <div className="border-t border-dark"></div>
+                                <div className="w-full pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto justify-items-center items-start content-start">
+                                    {blogs.map((blog) => (
+                                        <BlogCard key={blog._id} blog={blog} />
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="text-center mx-auto">
+                                <Spinner
+                                    className="text-dark"
+                                    aria-label="Center-aligned spinner example"
+                                />{" "}
+                                Fetching Recent Blogs...
                             </div>
-                        </motion.div>
-                    </>
-                ) : (
-                    <>
-                        <div className="text-center">
-                            <Spinner
-                                color="success"
-                                aria-label="Center-aligned spinner example"
-                            />
-                        </div>
-                    </>
-                )}
+                        </>
+                    )}
 
-                <FollowUsAside className="hidden lg:block" />
+                    {/* <FollowUsAside className="hidden lg:block" /> */}
+                </div>
             </div>
         </>
     );
